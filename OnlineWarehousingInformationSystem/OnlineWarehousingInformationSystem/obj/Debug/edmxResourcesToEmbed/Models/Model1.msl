@@ -1,0 +1,547 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OWISDBModelStoreContainer" CdmEntityContainer="OWISDBEntities">
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="OWISDBModel.Bills">
+        <MappingFragment StoreEntitySet="Bills">
+          <ScalarProperty Name="billID" ColumnName="billID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="invoiceID" ColumnName="invoiceID" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="operationDate" ColumnName="operationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="OWISDBModel.Orders">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="orderDescription" ColumnName="orderDescription" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PackageContents">
+      <EntityTypeMapping TypeName="OWISDBModel.PackageContents">
+        <MappingFragment StoreEntitySet="PackageContents">
+          <ScalarProperty Name="contentID" ColumnName="contentID" />
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Packages">
+      <EntityTypeMapping TypeName="OWISDBModel.Packages">
+        <MappingFragment StoreEntitySet="Packages">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="isProvided" ColumnName="isProvided" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+          <ScalarProperty Name="packageStatus" ColumnName="packageStatus" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="OWISDBModel.Payments">
+        <MappingFragment StoreEntitySet="Payments">
+          <ScalarProperty Name="paymentID" ColumnName="paymentID" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="invoiceID" ColumnName="invoiceID" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="operationDate" ColumnName="operationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="OWISDBModel.Products">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productDescription" ColumnName="productDescription" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="productWeight" ColumnName="productWeight" />
+          <ScalarProperty Name="inStock" ColumnName="inStock" />
+          <ScalarProperty Name="totalQuantity" ColumnName="totalQuantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shipments">
+      <EntityTypeMapping TypeName="OWISDBModel.Shipments">
+        <MappingFragment StoreEntitySet="Shipments">
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="shipmentDescription" ColumnName="shipmentDescription" />
+          <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shipping">
+      <EntityTypeMapping TypeName="OWISDBModel.Shipping">
+        <MappingFragment StoreEntitySet="Shipping">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="shippingDate" ColumnName="shippingDate" />
+          <ScalarProperty Name="estimatedDeliveryDate" ColumnName="estimatedDeliveryDate" />
+          <ScalarProperty Name="deliveryDate" ColumnName="deliveryDate" />
+          <ScalarProperty Name="currentLocation" ColumnName="currentLocation" />
+          <ScalarProperty Name="currentStatus" ColumnName="currentStatus" />
+          <ScalarProperty Name="shippingNote" ColumnName="shippingNote" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Staff">
+      <EntityTypeMapping TypeName="OWISDBModel.Staff">
+        <MappingFragment StoreEntitySet="Staff">
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="OWISDBModel.Suppliers">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="supplierAddress" ColumnName="supplierAddress" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="OWISDBModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="userGender" ColumnName="userGender" />
+          <ScalarProperty Name="userAge" ColumnName="userAge" />
+          <ScalarProperty Name="userType" ColumnName="userType" />
+          <ScalarProperty Name="userAddress" ColumnName="userAddress" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Warehouses">
+      <EntityTypeMapping TypeName="OWISDBModel.Warehouses">
+        <MappingFragment StoreEntitySet="Warehouses">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="warehouseAddress" ColumnName="warehouseAddress" />
+          <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+          <ScalarProperty Name="warehouseStatus" ColumnName="warehouseStatus" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="maxCapacity" ColumnName="maxCapacity" />
+          <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inventory">
+      <EntityTypeMapping TypeName="OWISDBModel.Inventory">
+        <MappingFragment StoreEntitySet="Inventory">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="totalQuantity" ColumnName="totalQuantity" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WarehouseContents">
+      <EntityTypeMapping TypeName="OWISDBModel.WarehouseContents">
+        <MappingFragment StoreEntitySet="WarehouseContents">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detailedPackages">
+      <EntityTypeMapping TypeName="OWISDBModel.detailedPackages">
+        <MappingFragment StoreEntitySet="detailedPackages">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="isProvided" ColumnName="isProvided" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+          <ScalarProperty Name="PackageWeightKG" ColumnName="PackageWeightKG" />
+          <ScalarProperty Name="packageStatus" ColumnName="packageStatus" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="getPackageContents">
+      <EntityTypeMapping TypeName="OWISDBModel.getPackageContents">
+        <MappingFragment StoreEntitySet="getPackageContents">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productQuantity" ColumnName="productQuantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="localPackages">
+      <EntityTypeMapping TypeName="OWISDBModel.localPackages">
+        <MappingFragment StoreEntitySet="localPackages">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="isProvided" ColumnName="isProvided" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+          <ScalarProperty Name="packageStatus" ColumnName="packageStatus" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="supplierAddress" ColumnName="supplierAddress" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orderPaidByCreditCard">
+      <EntityTypeMapping TypeName="OWISDBModel.orderPaidByCreditCard">
+        <MappingFragment StoreEntitySet="orderPaidByCreditCard">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="orderDescription" ColumnName="orderDescription" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="invoiceID" ColumnName="invoiceID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="operationDate" ColumnName="operationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ordersFromAbroad">
+      <EntityTypeMapping TypeName="OWISDBModel.ordersFromAbroad">
+        <MappingFragment StoreEntitySet="ordersFromAbroad">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="orderDescription" ColumnName="orderDescription" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
+          <ScalarProperty Name="warehouseStatus" ColumnName="warehouseStatus" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="packageWeights">
+      <EntityTypeMapping TypeName="OWISDBModel.packageWeights">
+        <MappingFragment StoreEntitySet="packageWeights">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="packageWeightKG" ColumnName="packageWeightKG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pendingPackage">
+      <EntityTypeMapping TypeName="OWISDBModel.pendingPackage">
+        <MappingFragment StoreEntitySet="pendingPackage">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+          <ScalarProperty Name="shippingDate" ColumnName="shippingDate" />
+          <ScalarProperty Name="estimatedDeliveryDate" ColumnName="estimatedDeliveryDate" />
+          <ScalarProperty Name="currentLocation" ColumnName="currentLocation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="receivedPackages">
+      <EntityTypeMapping TypeName="OWISDBModel.receivedPackages">
+        <MappingFragment StoreEntitySet="receivedPackages">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="supplierAddress" ColumnName="supplierAddress" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sentPackages">
+      <EntityTypeMapping TypeName="OWISDBModel.sentPackages">
+        <MappingFragment StoreEntitySet="sentPackages">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="shipmentPaidByCash">
+      <EntityTypeMapping TypeName="OWISDBModel.shipmentPaidByCash">
+        <MappingFragment StoreEntitySet="shipmentPaidByCash">
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="shipmentDescription" ColumnName="shipmentDescription" />
+          <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+          <ScalarProperty Name="invoiceID" ColumnName="invoiceID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="operationDate" ColumnName="operationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userTypeStaff">
+      <EntityTypeMapping TypeName="OWISDBModel.userTypeStaff">
+        <MappingFragment StoreEntitySet="userTypeStaff">
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="userAge" ColumnName="userAge" />
+          <ScalarProperty Name="userGender" ColumnName="userGender" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="warehouseStaff">
+      <EntityTypeMapping TypeName="OWISDBModel.warehouseStaff">
+        <MappingFragment StoreEntitySet="warehouseStaff">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="title" ColumnName="title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="warehouseStaffCount">
+      <EntityTypeMapping TypeName="OWISDBModel.warehouseStaffCount">
+        <MappingFragment StoreEntitySet="warehouseStaffCount">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="staffCount" ColumnName="staffCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="OWISDBModel.Store.checkWarehousesWithProductQuantity" FunctionImportName="checkWarehousesWithProductQuantity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.checkWarehousesWithProductQuantity_Result">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
+          <ScalarProperty Name="warehouseStatus" ColumnName="warehouseStatus" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="findWarehouseWithZip" FunctionName="OWISDBModel.Store.findWarehouseWithZip">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.findWarehouseWithZip_Result">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="currentCapacity" ColumnName="currentCapacity" />
+          <ScalarProperty Name="maxCapacity" ColumnName="maxCapacity" />
+          <ScalarProperty Name="warehouseStatus" ColumnName="warehouseStatus" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getBillFromDate" FunctionName="OWISDBModel.Store.getBillFromDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.getBillFromDate_Result">
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="invoiceID" ColumnName="invoiceID" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="operationDate" ColumnName="operationDate" />
+          <ScalarProperty Name="shipmentDate" ColumnName="shipmentDate" />
+          <ScalarProperty Name="shipmentDescription" ColumnName="shipmentDescription" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getDeliveredShipping" FunctionName="OWISDBModel.Store.getDeliveredShipping">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.getDeliveredShipping_Result">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="shippingDate" ColumnName="shippingDate" />
+          <ScalarProperty Name="shippingNote" ColumnName="shippingNote" />
+          <ScalarProperty Name="deliveryDate" ColumnName="deliveryDate" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPackageFromDate" FunctionName="OWISDBModel.Store.getPackageFromDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.getPackageFromDate_Result">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="isProvided" ColumnName="isProvided" />
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="shipmentID" ColumnName="shipmentID" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+          <ScalarProperty Name="packageStatus" ColumnName="packageStatus" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getPaymentsFromDate" FunctionName="OWISDBModel.Store.getPaymentsFromDate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.getPaymentsFromDate_Result">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="invoiceID" ColumnName="invoiceID" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="operationDate" ColumnName="operationDate" />
+          <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+          <ScalarProperty Name="orderDescription" ColumnName="orderDescription" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getShippingDetailOfPackage" FunctionName="OWISDBModel.Store.getShippingDetailOfPackage">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.getShippingDetailOfPackage_Result">
+          <ScalarProperty Name="packageID" ColumnName="packageID" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="shippingDate" ColumnName="shippingDate" />
+          <ScalarProperty Name="shippingNote" ColumnName="shippingNote" />
+          <ScalarProperty Name="deliveryDate" ColumnName="deliveryDate" />
+          <ScalarProperty Name="createdTime" ColumnName="createdTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getWarehouseInCountry" FunctionName="OWISDBModel.Store.getWarehouseInCountry">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.getWarehouseInCountry_Result">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="warehouseAddress" ColumnName="warehouseAddress" />
+          <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+          <ScalarProperty Name="warehouseStatus" ColumnName="warehouseStatus" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="lowStockItems" FunctionName="OWISDBModel.Store.lowStockItems">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.lowStockItems_Result">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productDescription" ColumnName="productDescription" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="productWeight" ColumnName="productWeight" />
+          <ScalarProperty Name="inStock" ColumnName="inStock" />
+          <ScalarProperty Name="totalQuantity" ColumnName="totalQuantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="searchForProduct" FunctionName="OWISDBModel.Store.searchForProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.searchForProduct_Result">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productDescription" ColumnName="productDescription" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="productWeight" ColumnName="productWeight" />
+          <ScalarProperty Name="totalQuantity" ColumnName="totalQuantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="searchForSupplier" FunctionName="OWISDBModel.Store.searchForSupplier">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.searchForSupplier_Result">
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="supplierName" ColumnName="supplierName" />
+          <ScalarProperty Name="supplierAddress" ColumnName="supplierAddress" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="searchForUser" FunctionName="OWISDBModel.Store.searchForUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.searchForUser_Result">
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="userAge" ColumnName="userAge" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="searchForWarehouse" FunctionName="OWISDBModel.Store.searchForWarehouse">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.searchForWarehouse_Result">
+          <ScalarProperty Name="warehouseID" ColumnName="warehouseID" />
+          <ScalarProperty Name="warehouseName" ColumnName="warehouseName" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="warehouseStatus" ColumnName="warehouseStatus" />
+          <ScalarProperty Name="warehouseAddress" ColumnName="warehouseAddress" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sumProductQuantityInPackage" FunctionName="OWISDBModel.Store.sumProductQuantityInPackage" />
+    <FunctionImportMapping FunctionImportName="updateProductQuantity" FunctionName="OWISDBModel.Store.updateProductQuantity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.updateProductQuantity_Result">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productDescription" ColumnName="productDescription" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="productWeight" ColumnName="productWeight" />
+          <ScalarProperty Name="inStock" ColumnName="inStock" />
+          <ScalarProperty Name="totalQuantity" ColumnName="totalQuantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usersWithType" FunctionName="OWISDBModel.Store.usersWithType">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="OWISDBModel.usersWithType_Result">
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="userAge" ColumnName="userAge" />
+          <ScalarProperty Name="userGender" ColumnName="userGender" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

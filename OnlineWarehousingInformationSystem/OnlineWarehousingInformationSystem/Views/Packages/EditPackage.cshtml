@@ -1,0 +1,81 @@
+﻿﻿@model OnlineWarehousingInformationSystem.Models.Packages
+@{
+    ViewBag.Title = "EditPackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+        var id = document.getElementById("id").value;
+        var notes = document.getElementById("notes").value;
+        if (id == "" || notes == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        if (notes.length > 100) {
+            var error = "Max limit is 100";
+            document.getElementById("note_error").innerHTML = error;
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Edit Package</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Packages")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Package</h4>
+        <hr />
+        @Html.HiddenFor(model => model.packageID)
+        @Html.HiddenFor(model => model.supplierID)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @if (Model.supplierID != 1)
+        {
+            <div class="form-group">
+                <b class="control-label col-md-2">Supplier</b>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.supplierID, new { id = "id", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                    <b id="desc_error" style="color:red;font-weight:300"></b>
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <b class="control-label col-md-2">Status</b>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.packageStatus, new SelectListItem[]
+          {
+              new SelectListItem {Value="Preparing", Text = "Preparing",Selected = (Model.packageStatus == "Preparing")},
+              new SelectListItem {Value="Pending", Text="Pending",Selected = (Model.packageStatus == "Pending")},
+              new SelectListItem {Value="Ready For Shipping", Text="Ready For Shipping",Selected = (Model.packageStatus == "Ready For Shipping")},
+              new SelectListItem {Value="On Shipping", Text="On Shipping",Selected = (Model.packageStatus == "On Shipping")}})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Notes</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.notes, new { id = "notes", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="note_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}

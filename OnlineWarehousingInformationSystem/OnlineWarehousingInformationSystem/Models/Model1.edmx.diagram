@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b03e597c7ee24bcba6128fec3d703029" Name="Diagram1">
+        <EntityTypeShape EntityType="OWISDBModel.Bills" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Orders" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.PackageContents" Width="1.5" PointX="13.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Packages" Width="1.5" PointX="11.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Payments" Width="1.5" PointX="5.25" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Products" Width="1.5" PointX="11.25" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Shipments" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Shipping" Width="1.5" PointX="13.5" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Staff" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Suppliers" Width="1.5" PointX="9" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Users" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Warehouses" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.Inventory" Width="1.5" PointX="13.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.WarehouseContents" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.detailedPackages" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.getPackageContents" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.localPackages" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.orderPaidByCreditCard" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.ordersFromAbroad" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.packageWeights" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.pendingPackage" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.receivedPackages" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.sentPackages" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.shipmentPaidByCash" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.userTypeStaff" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.warehouseStaff" Width="1.5" PointX="15.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OWISDBModel.warehouseStaffCount" Width="1.5" PointX="15.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="OWISDBModel.FK__Bills__shipmentI__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Orders__staffID__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Orders__warehous__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Packages__orderI__5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Payments__orderI__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__PackageCo__packa__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__PackageCo__produ__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Packages__shipme__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Packages__suppli__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Shipping__packag__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Inventory__produ__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Warehouse__produ__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Shipments__staff__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Shipments__wareh__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Staff__userID__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Staff__warehouse__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="OWISDBModel.FK__Warehouse__wareh__32E0915F" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

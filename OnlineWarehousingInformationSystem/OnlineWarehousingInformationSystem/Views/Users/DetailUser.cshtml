@@ -1,0 +1,219 @@
+﻿@{
+    ViewBag.Title = "DetailUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table>
+
+    @foreach (var item in Model)
+    {
+        <div class="row gutters-sm">
+
+            <div class="row">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="col-md-10">
+                            <h3>User Details</h3>
+                        </div>
+                        @if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+                        {
+                            <div class="col-md-2">
+                                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Request.UrlReferrer'" />
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-2">
+                                <input type="button" class="btn btn-primary" value="Back to Main Page" onclick="location.href='@Url.Action("Index", "Main")'" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            @if (item.userType == "2")
+                        {
+                            if (item.userGender.Equals("Male"))
+                            {
+                                <img src="~/Content/images/adminman.png" alt="Profile Picture" class="rounded-circle" width="150" />
+                            }
+                            else if (item.userGender.Equals("Female"))
+                            {
+                                <img src="~/Content/images/adminwoman.png" alt="Profile Picture" class="rounded-circle" width="150" />
+                            }
+                        }
+                            @if (item.userType == "1")
+                            {
+                                if (item.userGender.Equals("Male"))
+                                {
+                                    <img src="~/Content/images/staffman.png" alt="Profile Picture" class="rounded-circle" width="150" />
+                                }
+                                else if (item.userGender.Equals("Female"))
+                                {
+                                    <img src="~/Content/images/staffwoman.png" alt="Profile Picture" class="rounded-circle" width="150" />
+                                }
+                            }
+                            @if (item.userType == "0")
+                        {
+                            if (item.userGender.Equals("Male"))
+                            {
+                                <img src="~/Content/images/userman.png" alt="Profile Picture" class="rounded-circle" width="150" />
+                            }
+                            else if (item.userGender.Equals("Female"))
+                            {
+                                <img src="~/Content/images/userwoman.png" alt="Profile Picture" class="rounded-circle" width="150" />
+                            }
+                        }
+                            <!--<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Profile Picture" class="rounded-circle" width="150">-->
+                            <div class="mt-3">
+                                <h4>@item.firstName @item.lastName </h4>
+                                <p class="text-secondary mb-1">
+                                    @if (item.userType.Equals("0"))
+                                    {
+                                    <p>User</p>
+                                }
+                                    @if (item.userType.Equals("1"))
+                                    {
+                                        <p>Staff</p>
+                                    }
+                                    @if (item.userType.Equals("2"))
+                                    {
+                                        <p>Admin</p>
+                                    }
+                                    </p>
+                                    @if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+                                    {
+                                        @Html.ActionLink("Edit", "EditUser", "Users", new { id = @item.userID }, null) 
+                                        if (!item.userType.Equals("2"))
+                                        {
+                                            <span>|</span>
+                                            @Html.ActionLink("Delete", "DeleteFromUsers", "Users", new { id = @item.userID }, new { onclick = "return confirm('Are you sure you wish to delete this user?'); " })
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    @if (item.userType.Equals("1"))
+                                        {
+                                            <div class="card mt-3">
+                                                <h4>Staff Information</h4>
+                                                @foreach (var i in item.Staff)
+                                                {
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                            <h6 class="mb-0">Staff ID</h6>
+                                                            <span class="text-secondary">@i.staffID</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                            <h6 class="mb-0">Title</h6>
+                                                            <span class="text-secondary">@i.title</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                            <h6 class="mb-0">Warehouse ID</h6>
+                                                            <span class="text-secondary">@i.warehouseID</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                            <h6 class="mb-0">Warehouse Name</h6>
+                                                            <span class="text-secondary">@i.Warehouses.warehouseName</span>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            </div>
+                                        }
+                </div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">User ID</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.userID
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.firstName @item.lastName
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Gender</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.userGender
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Age</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.userAge
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Address</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.userAddress
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">User Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.userName
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Password</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.userPassword
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.email
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone Number</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.phoneNumber
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+</table>
+

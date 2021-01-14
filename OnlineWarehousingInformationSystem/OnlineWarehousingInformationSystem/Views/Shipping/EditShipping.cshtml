@@ -1,0 +1,93 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Shipping
+@{
+    ViewBag.Title = "EditShipping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+        var date = document.getElementById("shippingDate").value;
+        var location = document.getElementById("currentLocation").value;
+        if (date == "" || location == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        if (location.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("location_error").innerHTML = error;
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Edit Shipping</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Shipping")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.packageID)
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Estimated Delivery Date</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.estimatedDeliveryDate, new { id = "estimatedDeliveryDate", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Delivery Date</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.deliveryDate, new { id = "deliveryDate", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Current Location</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.currentLocation, new { id = "currentLocation", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="location_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Current Status</b>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.currentStatus, new SelectListItem[]
+                 {
+                     new SelectListItem {Value="Processed", Text = "Processed", Selected = (Model.currentStatus == "Processed") },
+                     new SelectListItem {Value="Shipped", Text="Shipped", Selected = (Model.currentStatus == "Shipped") },
+                     new SelectListItem {Value="On The Way", Text="On The Way", Selected = (Model.currentStatus == "On The Way")},
+                     new SelectListItem {Value="Delivered", Text="Delivered", Selected = (Model.currentStatus == "Delivered")}})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Shipping Note</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.shippingNote, new { id = "shippingNote", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-success" onclick="return validateForm();"/>
+            </div>
+        </div>
+    </div>
+}
+

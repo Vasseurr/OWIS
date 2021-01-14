@@ -1,0 +1,949 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OWISDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bills">
+    <Key>
+      <PropertyRef Name="billID" />
+    </Key>
+    <Property Name="billID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="shipmentID" Type="int" Nullable="false" />
+    <Property Name="invoiceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="paymentType" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="operationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.Inventory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Inventory">
+    <Key>
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="totalQuantity" />
+      <PropertyRef Name="updateDate" />
+    </Key>
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="totalQuantity" Type="int" Nullable="false" />
+    <Property Name="updateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="staffID" Type="int" />
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="orderDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="orderDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PackageContents">
+    <Key>
+      <PropertyRef Name="contentID" />
+    </Key>
+    <Property Name="contentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="productQuantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Packages">
+    <Key>
+      <PropertyRef Name="packageID" />
+    </Key>
+    <Property Name="packageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="isProvided" Type="bit" Nullable="false" />
+    <Property Name="orderID" Type="int" />
+    <Property Name="shipmentID" Type="int" />
+    <Property Name="supplierID" Type="int" Nullable="false" />
+    <Property Name="createdTime" Type="datetime" Nullable="false" />
+    <Property Name="packageStatus" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="notes" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderID" Type="int" Nullable="false" />
+    <Property Name="invoiceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="paymentType" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="operationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="productDescription" Type="varchar" MaxLength="30" />
+    <Property Name="manufacturer" Type="varchar" MaxLength="20" />
+    <Property Name="productWeight" Type="float" Nullable="false" />
+    <Property Name="inStock" Type="bit" Nullable="false" />
+    <Property Name="totalQuantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Shipments">
+    <Key>
+      <PropertyRef Name="shipmentID" />
+    </Key>
+    <Property Name="shipmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="staffID" Type="int" />
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="shipmentDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="shipmentDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Shipping">
+    <Key>
+      <PropertyRef Name="packageID" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="shippingDate" Type="datetime" Nullable="false" />
+    <Property Name="estimatedDeliveryDate" Type="date" />
+    <Property Name="deliveryDate" Type="date" />
+    <Property Name="currentLocation" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="currentStatus" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="shippingNote" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="staffID" />
+    </Key>
+    <Property Name="staffID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="supplierID" />
+    </Key>
+    <Property Name="supplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="supplierName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="supplierAddress" Type="varchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="userPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="userGender" Type="varchar" MaxLength="6" />
+    <Property Name="userAge" Type="int" Nullable="false" />
+    <Property Name="userType" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="userAddress" Type="varchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.WarehouseContents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="WarehouseContents">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="quantity" />
+    </Key>
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Warehouses">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+    </Key>
+    <Property Name="warehouseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="warehouseName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="warehouseAddress" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ZIP" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="warehouseStatus" Type="varchar" MaxLength="20" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="maxCapacity" Type="int" Nullable="false" />
+    <Property Name="currentCapacity" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.detailedPackages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="detailedPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="isProvided" />
+      <PropertyRef Name="packageStatus" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="supplierName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="createdTime" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="shipmentID" Type="int" />
+    <Property Name="orderID" Type="int" />
+    <Property Name="isProvided" Type="bit" Nullable="false" />
+    <Property Name="notes" Type="varchar" MaxLength="100" />
+    <Property Name="PackageWeightKG" Type="float" />
+    <Property Name="packageStatus" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="supplierID" Type="int" Nullable="false" />
+    <Property Name="supplierName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="createdTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.getPackageContents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="getPackageContents">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="productName" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="productName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="productQuantity" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.localPackages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="localPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="isProvided" />
+      <PropertyRef Name="createdTime" />
+      <PropertyRef Name="packageStatus" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="supplierName" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="isProvided" Type="bit" Nullable="false" />
+    <Property Name="orderID" Type="int" />
+    <Property Name="shipmentID" Type="int" />
+    <Property Name="createdTime" Type="datetime" Nullable="false" />
+    <Property Name="packageStatus" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="supplierID" Type="int" Nullable="false" />
+    <Property Name="supplierName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="supplierAddress" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.orderPaidByCreditCard' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="orderPaidByCreditCard">
+    <Key>
+      <PropertyRef Name="orderID" />
+      <PropertyRef Name="orderDate" />
+      <PropertyRef Name="invoiceID" />
+      <PropertyRef Name="amount" />
+      <PropertyRef Name="operationDate" />
+    </Key>
+    <Property Name="orderID" Type="int" Nullable="false" />
+    <Property Name="orderDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="orderDate" Type="datetime" Nullable="false" />
+    <Property Name="invoiceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="operationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.ordersFromAbroad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ordersFromAbroad">
+    <Key>
+      <PropertyRef Name="orderID" />
+      <PropertyRef Name="orderDate" />
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="warehouseName" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="orderID" Type="int" Nullable="false" />
+    <Property Name="orderDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="orderDate" Type="datetime" Nullable="false" />
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="warehouseName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="currentCapacity" Type="int" />
+    <Property Name="warehouseStatus" Type="varchar" MaxLength="20" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.packageWeights' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="packageWeights">
+    <Key>
+      <PropertyRef Name="packageID" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="packageWeightKG" Type="float" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.pendingPackage' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="pendingPackage">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="createdTime" />
+      <PropertyRef Name="shippingDate" />
+      <PropertyRef Name="currentLocation" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="shipmentID" Type="int" />
+    <Property Name="supplierID" Type="int" Nullable="false" />
+    <Property Name="createdTime" Type="datetime" Nullable="false" />
+    <Property Name="shippingDate" Type="datetime" Nullable="false" />
+    <Property Name="estimatedDeliveryDate" Type="date" />
+    <Property Name="currentLocation" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.receivedPackages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="receivedPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="createdTime" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="supplierName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="phoneNumber" />
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="shipmentID" Type="int" />
+    <Property Name="createdTime" Type="datetime" Nullable="false" />
+    <Property Name="supplierID" Type="int" Nullable="false" />
+    <Property Name="supplierName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="supplierAddress" Type="varchar" MaxLength="50" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.sentPackages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="sentPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="createdTime" />
+    </Key>
+    <Property Name="packageID" Type="int" Nullable="false" />
+    <Property Name="shipmentID" Type="int" />
+    <Property Name="createdTime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.shipmentPaidByCash' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="shipmentPaidByCash">
+    <Key>
+      <PropertyRef Name="shipmentID" />
+      <PropertyRef Name="shipmentDate" />
+      <PropertyRef Name="invoiceID" />
+      <PropertyRef Name="amount" />
+      <PropertyRef Name="operationDate" />
+    </Key>
+    <Property Name="shipmentID" Type="int" Nullable="false" />
+    <Property Name="shipmentDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="shipmentDate" Type="datetime" Nullable="false" />
+    <Property Name="invoiceID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="amount" Type="int" Nullable="false" />
+    <Property Name="operationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'OWISDB.owis.totalEarnedmoney' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="totalEarnedmoney">
+          <Property Name="totalPaidMoney" Type="int" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'OWISDB.owis.totalPaidmoney' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="totalPaidmoney">
+          <Property Name="totalPaidMoney" Type="int" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.userTypeStaff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="userTypeStaff">
+    <Key>
+      <PropertyRef Name="userName" />
+      <PropertyRef Name="firstName" />
+      <PropertyRef Name="lastName" />
+      <PropertyRef Name="userAge" />
+      <PropertyRef Name="email" />
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="staffID" />
+    </Key>
+    <Property Name="userName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="userAge" Type="int" Nullable="false" />
+    <Property Name="userGender" Type="varchar" MaxLength="6" />
+    <Property Name="email" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="staffID" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.warehouseStaff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="warehouseStaff">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="warehouseName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="staffID" />
+      <PropertyRef Name="firstName" />
+      <PropertyRef Name="lastName" />
+    </Key>
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="warehouseName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="currentCapacity" Type="int" />
+    <Property Name="staffID" Type="int" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'OWISDB.owis.warehouseStaffCount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="warehouseStaffCount">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="warehouseName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+    </Key>
+    <Property Name="warehouseID" Type="int" Nullable="false" />
+    <Property Name="warehouseName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="currentCapacity" Type="int" />
+    <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="staffCount" Type="int" />
+  </EntityType>
+  <Association Name="FK__Bills__shipmentI__5165187F">
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shipments">
+        <PropertyRef Name="shipmentID" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="shipmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inventory__produ__6B24EA82">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__staffID__4222D4EF">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="staffID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__warehous__4316F928">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PackageCo__packa__619B8048">
+    <End Role="Packages" Type="Self.Packages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PackageContents" Type="Self.PackageContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Packages">
+        <PropertyRef Name="packageID" />
+      </Principal>
+      <Dependent Role="PackageContents">
+        <PropertyRef Name="packageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PackageCo__produ__60A75C0F">
+    <End Role="Products" Type="Self.Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PackageContents" Type="Self.PackageContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="PackageContents">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Packages__orderI__5AEE82B9">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="Packages">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Packages__shipme__5BE2A6F2">
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="0..1" />
+    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shipments">
+        <PropertyRef Name="shipmentID" />
+      </Principal>
+      <Dependent Role="Packages">
+        <PropertyRef Name="shipmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Packages__suppli__5CD6CB2B">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="supplierID" />
+      </Principal>
+      <Dependent Role="Packages">
+        <PropertyRef Name="supplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payments__orderI__4CA06362">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Shipments__staff__46E78A0C">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="staffID" />
+      </Principal>
+      <Dependent Role="Shipments">
+        <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Shipments__wareh__47DBAE45">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="Shipments">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Shipping__packag__66603565">
+    <End Role="Packages" Type="Self.Packages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Shipping" Type="Self.Shipping" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Packages">
+        <PropertyRef Name="packageID" />
+      </Principal>
+      <Dependent Role="Shipping">
+        <PropertyRef Name="packageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Staff__userID__3D5E1FD2">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Staff__warehouse__3E52440B">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Warehouse__produ__33D4B598">
+    <End Role="Products" Type="Self.Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WarehouseContents" Type="Self.WarehouseContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="WarehouseContents">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Warehouse__wareh__32E0915F">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WarehouseContents" Type="Self.WarehouseContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="WarehouseContents">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="checkWarehousesWithProductQuantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="productID" Type="int" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="warehouseID" Type="int" Nullable="false" />
+          <Property Name="warehouseName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="currentCapacity" Type="int" />
+          <Property Name="warehouseStatus" Type="varchar" MaxLength="20" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="findWarehouseWithZip" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="zipCode" Type="char" Mode="In" />
+  </Function>
+  <Function Name="getBillFromDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="getDeliveredShipping" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis" />
+  <Function Name="getPackageFromDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="getPaymentsFromDate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="getShippingDetailOfPackage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="packageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getStockFromWarehouse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis" ReturnType="int">
+    <Parameter Name="productID" Type="int" Mode="In" />
+    <Parameter Name="warehouseID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getWarehouseCurrentCapacity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis" ReturnType="int">
+    <Parameter Name="warehouseID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="getWarehouseInCountry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="country" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="lowStockItems" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis" />
+  <Function Name="searchForProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="searchParameter" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="searchForSupplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="searchParameter" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="searchForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="searchParameter" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="searchForWarehouse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="searchParameter" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sumProductQuantityInPackage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="packageID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="updateProductQuantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="productID" Type="varchar" Mode="In" />
+    <Parameter Name="totalquantity" Type="int" Mode="In" />
+  </Function>
+  <Function Name="usersWithType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="owis">
+    <Parameter Name="userType" Type="char" Mode="In" />
+  </Function>
+  <EntityContainer Name="OWISDBModelStoreContainer">
+    <EntitySet Name="Bills" EntityType="Self.Bills" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="PackageContents" EntityType="Self.PackageContents" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Packages" EntityType="Self.Packages" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Staff" EntityType="Self.Staff" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Warehouses" EntityType="Self.Warehouses" Schema="owis" store:Type="Tables" />
+    <EntitySet Name="Inventory" EntityType="Self.Inventory" store:Type="Tables" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [Inventory].[productID] AS [productID], 
+    [Inventory].[totalQuantity] AS [totalQuantity], 
+    [Inventory].[updateDate] AS [updateDate]
+    FROM [owis].[Inventory] AS [Inventory]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="WarehouseContents" EntityType="Self.WarehouseContents" store:Type="Tables" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [WarehouseContents].[warehouseID] AS [warehouseID], 
+    [WarehouseContents].[productID] AS [productID], 
+    [WarehouseContents].[quantity] AS [quantity]
+    FROM [owis].[WarehouseContents] AS [WarehouseContents]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="detailedPackages" EntityType="Self.detailedPackages" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [detailedPackages].[packageID] AS [packageID], 
+    [detailedPackages].[shipmentID] AS [shipmentID], 
+    [detailedPackages].[orderID] AS [orderID], 
+    [detailedPackages].[isProvided] AS [isProvided], 
+    [detailedPackages].[notes] AS [notes], 
+    [detailedPackages].[PackageWeightKG] AS [PackageWeightKG], 
+    [detailedPackages].[packageStatus] AS [packageStatus], 
+    [detailedPackages].[supplierID] AS [supplierID], 
+    [detailedPackages].[supplierName] AS [supplierName], 
+    [detailedPackages].[country] AS [country], 
+    [detailedPackages].[city] AS [city], 
+    [detailedPackages].[createdTime] AS [createdTime]
+    FROM [owis].[detailedPackages] AS [detailedPackages]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="getPackageContents" EntityType="Self.getPackageContents" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [getPackageContents].[packageID] AS [packageID], 
+    [getPackageContents].[productID] AS [productID], 
+    [getPackageContents].[productName] AS [productName], 
+    [getPackageContents].[productQuantity] AS [productQuantity]
+    FROM [owis].[getPackageContents] AS [getPackageContents]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="localPackages" EntityType="Self.localPackages" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [localPackages].[packageID] AS [packageID], 
+    [localPackages].[isProvided] AS [isProvided], 
+    [localPackages].[orderID] AS [orderID], 
+    [localPackages].[shipmentID] AS [shipmentID], 
+    [localPackages].[createdTime] AS [createdTime], 
+    [localPackages].[packageStatus] AS [packageStatus], 
+    [localPackages].[supplierID] AS [supplierID], 
+    [localPackages].[supplierName] AS [supplierName], 
+    [localPackages].[city] AS [city], 
+    [localPackages].[supplierAddress] AS [supplierAddress], 
+    [localPackages].[email] AS [email]
+    FROM [owis].[localPackages] AS [localPackages]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="orderPaidByCreditCard" EntityType="Self.orderPaidByCreditCard" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [orderPaidByCreditCard].[orderID] AS [orderID], 
+    [orderPaidByCreditCard].[orderDescription] AS [orderDescription], 
+    [orderPaidByCreditCard].[orderDate] AS [orderDate], 
+    [orderPaidByCreditCard].[invoiceID] AS [invoiceID], 
+    [orderPaidByCreditCard].[amount] AS [amount], 
+    [orderPaidByCreditCard].[operationDate] AS [operationDate]
+    FROM [owis].[orderPaidByCreditCard] AS [orderPaidByCreditCard]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ordersFromAbroad" EntityType="Self.ordersFromAbroad" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [ordersFromAbroad].[orderID] AS [orderID], 
+    [ordersFromAbroad].[orderDescription] AS [orderDescription], 
+    [ordersFromAbroad].[orderDate] AS [orderDate], 
+    [ordersFromAbroad].[warehouseID] AS [warehouseID], 
+    [ordersFromAbroad].[warehouseName] AS [warehouseName], 
+    [ordersFromAbroad].[city] AS [city], 
+    [ordersFromAbroad].[currentCapacity] AS [currentCapacity], 
+    [ordersFromAbroad].[warehouseStatus] AS [warehouseStatus], 
+    [ordersFromAbroad].[email] AS [email]
+    FROM [owis].[ordersFromAbroad] AS [ordersFromAbroad]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="packageWeights" EntityType="Self.packageWeights" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [packageWeights].[packageID] AS [packageID], 
+    [packageWeights].[packageWeightKG] AS [packageWeightKG]
+    FROM [owis].[packageWeights] AS [packageWeights]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="pendingPackage" EntityType="Self.pendingPackage" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [pendingPackage].[packageID] AS [packageID], 
+    [pendingPackage].[shipmentID] AS [shipmentID], 
+    [pendingPackage].[supplierID] AS [supplierID], 
+    [pendingPackage].[createdTime] AS [createdTime], 
+    [pendingPackage].[shippingDate] AS [shippingDate], 
+    [pendingPackage].[estimatedDeliveryDate] AS [estimatedDeliveryDate], 
+    [pendingPackage].[currentLocation] AS [currentLocation]
+    FROM [owis].[pendingPackage] AS [pendingPackage]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="receivedPackages" EntityType="Self.receivedPackages" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [receivedPackages].[packageID] AS [packageID], 
+    [receivedPackages].[shipmentID] AS [shipmentID], 
+    [receivedPackages].[createdTime] AS [createdTime], 
+    [receivedPackages].[supplierID] AS [supplierID], 
+    [receivedPackages].[supplierName] AS [supplierName], 
+    [receivedPackages].[country] AS [country], 
+    [receivedPackages].[city] AS [city], 
+    [receivedPackages].[supplierAddress] AS [supplierAddress], 
+    [receivedPackages].[phoneNumber] AS [phoneNumber], 
+    [receivedPackages].[email] AS [email]
+    FROM [owis].[receivedPackages] AS [receivedPackages]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="sentPackages" EntityType="Self.sentPackages" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [sentPackages].[packageID] AS [packageID], 
+    [sentPackages].[shipmentID] AS [shipmentID], 
+    [sentPackages].[createdTime] AS [createdTime]
+    FROM [owis].[sentPackages] AS [sentPackages]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="shipmentPaidByCash" EntityType="Self.shipmentPaidByCash" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [shipmentPaidByCash].[shipmentID] AS [shipmentID], 
+    [shipmentPaidByCash].[shipmentDescription] AS [shipmentDescription], 
+    [shipmentPaidByCash].[shipmentDate] AS [shipmentDate], 
+    [shipmentPaidByCash].[invoiceID] AS [invoiceID], 
+    [shipmentPaidByCash].[amount] AS [amount], 
+    [shipmentPaidByCash].[operationDate] AS [operationDate]
+    FROM [owis].[shipmentPaidByCash] AS [shipmentPaidByCash]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="userTypeStaff" EntityType="Self.userTypeStaff" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [userTypeStaff].[userName] AS [userName], 
+    [userTypeStaff].[firstName] AS [firstName], 
+    [userTypeStaff].[lastName] AS [lastName], 
+    [userTypeStaff].[userAge] AS [userAge], 
+    [userTypeStaff].[userGender] AS [userGender], 
+    [userTypeStaff].[email] AS [email], 
+    [userTypeStaff].[warehouseID] AS [warehouseID], 
+    [userTypeStaff].[staffID] AS [staffID], 
+    [userTypeStaff].[title] AS [title]
+    FROM [owis].[userTypeStaff] AS [userTypeStaff]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="warehouseStaff" EntityType="Self.warehouseStaff" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [warehouseStaff].[warehouseID] AS [warehouseID], 
+    [warehouseStaff].[warehouseName] AS [warehouseName], 
+    [warehouseStaff].[country] AS [country], 
+    [warehouseStaff].[city] AS [city], 
+    [warehouseStaff].[currentCapacity] AS [currentCapacity], 
+    [warehouseStaff].[staffID] AS [staffID], 
+    [warehouseStaff].[firstName] AS [firstName], 
+    [warehouseStaff].[lastName] AS [lastName], 
+    [warehouseStaff].[title] AS [title]
+    FROM [owis].[warehouseStaff] AS [warehouseStaff]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="warehouseStaffCount" EntityType="Self.warehouseStaffCount" store:Type="Views" store:Schema="owis">
+      <DefiningQuery>SELECT 
+    [warehouseStaffCount].[warehouseID] AS [warehouseID], 
+    [warehouseStaffCount].[warehouseName] AS [warehouseName], 
+    [warehouseStaffCount].[currentCapacity] AS [currentCapacity], 
+    [warehouseStaffCount].[country] AS [country], 
+    [warehouseStaffCount].[city] AS [city], 
+    [warehouseStaffCount].[staffCount] AS [staffCount]
+    FROM [owis].[warehouseStaffCount] AS [warehouseStaffCount]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Bills__shipmentI__5165187F" Association="Self.FK__Bills__shipmentI__5165187F">
+      <End Role="Shipments" EntitySet="Shipments" />
+      <End Role="Bills" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inventory__produ__6B24EA82" Association="Self.FK__Inventory__produ__6B24EA82">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__staffID__4222D4EF" Association="Self.FK__Orders__staffID__4222D4EF">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__warehous__4316F928" Association="Self.FK__Orders__warehous__4316F928">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PackageCo__packa__619B8048" Association="Self.FK__PackageCo__packa__619B8048">
+      <End Role="Packages" EntitySet="Packages" />
+      <End Role="PackageContents" EntitySet="PackageContents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PackageCo__produ__60A75C0F" Association="Self.FK__PackageCo__produ__60A75C0F">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="PackageContents" EntitySet="PackageContents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Packages__orderI__5AEE82B9" Association="Self.FK__Packages__orderI__5AEE82B9">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Packages" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Packages__shipme__5BE2A6F2" Association="Self.FK__Packages__shipme__5BE2A6F2">
+      <End Role="Shipments" EntitySet="Shipments" />
+      <End Role="Packages" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Packages__suppli__5CD6CB2B" Association="Self.FK__Packages__suppli__5CD6CB2B">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Packages" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payments__orderI__4CA06362" Association="Self.FK__Payments__orderI__4CA06362">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Shipments__staff__46E78A0C" Association="Self.FK__Shipments__staff__46E78A0C">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="Shipments" EntitySet="Shipments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Shipments__wareh__47DBAE45" Association="Self.FK__Shipments__wareh__47DBAE45">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Shipments" EntitySet="Shipments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Shipping__packag__66603565" Association="Self.FK__Shipping__packag__66603565">
+      <End Role="Packages" EntitySet="Packages" />
+      <End Role="Shipping" EntitySet="Shipping" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Staff__userID__3D5E1FD2" Association="Self.FK__Staff__userID__3D5E1FD2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Staff__warehouse__3E52440B" Association="Self.FK__Staff__warehouse__3E52440B">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Warehouse__produ__33D4B598" Association="Self.FK__Warehouse__produ__33D4B598">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="WarehouseContents" EntitySet="WarehouseContents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Warehouse__wareh__32E0915F" Association="Self.FK__Warehouse__wareh__32E0915F">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="WarehouseContents" EntitySet="WarehouseContents" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

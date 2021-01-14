@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "DetailPackage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <h3>Package Details - #@ViewBag.id</h3>
+            </div>
+            <div class="row col-md-9 text-right">
+                <ul>
+                    <li style="text-decoration:none;display:inline-block">
+                        <input type="button" class="btn btn-success" value="Add Product" onclick="location.href='@Url.Action("AddProduct", "Packages", new { packageID = ViewBag.id})'" />
+                    </li>
+                    <li style="text-decoration:none;display:inline-block">
+                        <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Packages")'" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<table>
+
+    @foreach (var item in Model.Package)
+    {
+        <div class="col-md-8 text-center">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Package ID</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.packageID
+                        </div>
+                    </div>
+                    <hr>
+                    @if (item.isProvided == true)
+                    {
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Shipment ID</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @item.shipmentID
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Order ID</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @item.orderID
+                            </div>
+                        </div>
+                    }
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Supplier ID</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.supplierID
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Supplier Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.Suppliers.supplierName
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Package Status</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.packageStatus
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Notes</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.notes
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    }
+</table>
+
+<hr />
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <h4>Package Contents</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover ">
+        <thead style="font-weight:700;font-size:110%;">
+            <tr>
+                <td>Product ID</td>
+                <td>Product Name</td>
+                <td>Quantity</td>
+                <td></td>
+            </tr>
+        </thead>
+        <hr />
+        <tbody>
+            @foreach (var item in Model.Contents)
+            {
+                <tr>
+                    <td scope="row">@item.productID</td>
+                    <td>@item.productName</td>
+                    <td>@item.productQuantity</td>
+                    <td>
+                        @Html.ActionLink("Update", "UpdatePackageProduct", "Packages", new { packageID = item.packageID, productID = item.productID }, null) |
+                        @Html.ActionLink("Delete", "DeleteProducts", "Packages", new { packageID = item.packageID, productID = item.productID }, new { onclick = "return confirm('Are you sure you wish to delete this product from package?'); " })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

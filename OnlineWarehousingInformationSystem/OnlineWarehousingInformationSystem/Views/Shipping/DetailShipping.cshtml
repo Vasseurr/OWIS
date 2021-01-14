@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "DetailShipping";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <h3>Shipping Details</h3>
+            </div>
+            <div class="row col-md-9 text-right">
+                <ul>
+                    <li style="text-decoration:none;display:inline-block">
+                        <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Shipping")'" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div class="col-md-1"></div>
+<div class="col-md-11">
+    <table>
+
+        @foreach (var item in Model)
+        {
+            <div class="row gutters-sm">
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Package ID</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.packageID
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Shipping Date</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.shippingDate
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Estimated Delivery Date</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.estimatedDeliveryDate
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Delivery Date</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.deliveryDate
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Current Location</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.currentLocation
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Current Status</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.currentStatus
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Shipping Note</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    @item.shippingNote
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </table>
+</div>

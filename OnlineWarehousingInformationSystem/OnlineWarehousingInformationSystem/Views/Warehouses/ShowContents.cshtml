@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "ShowContents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <h3>Warehouses Contents</h3>
+        </div>
+        <div class="row col-md-9 text-right">
+            <ul>
+                <li style="text-decoration:none;display:inline-block">
+                    <input type="button" class="btn btn-primary" value="Return to Warehouse" onclick="location.href='@Request.UrlReferrer'" />
+                </li>
+                <li style="text-decoration:none;display:inline-block">
+                    <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Warehouses")'" />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover ">
+        <thead style="font-weight:700;font-size:110%;">
+            <tr>
+                <td>Warehouse ID</td>
+                <td>Product ID</td>
+                <td>Product Name</td>
+                <td>Quantity</td>
+            </tr>
+        </thead>
+        <hr />
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td scope="row">@item.warehouseID</td>
+                    <td>@item.productID</td>
+                    <td>@item.Products.productName</td>
+                    <td>@item.quantity</td>
+                    <td>
+                        @Html.ActionLink("Detail Product", "DetailProduct", "Products", new { id = item.productID }, null)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

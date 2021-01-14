@@ -1,0 +1,162 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Warehouses
+@{
+    ViewBag.Title = "AddWarehouse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+        var name = document.getElementById("warehouseName").value;
+        var country = document.getElementById("country").value;
+        var city = document.getElementById("city").value;
+        var address = document.getElementById("address").value;
+        var zip = document.getElementById("zip").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var email = document.getElementById("email").value;
+        var maxCapacity = document.getElementById("maxCapacity").value;
+        if (name == "" || country == "" || city == "" || address == "" || zip == "" || phoneNumber == "" || email == "" || maxCapacity == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        if (name.length > 30) {
+            var error = "Max limit is 30";
+            document.getElementById("name_error").innerHTML = error;
+            return false;
+        }
+        if (country.length > 20) {
+            var error = "Max limit is 30";
+            document.getElementById("country_error").innerHTML = error;
+            return false;
+        }
+        if (city.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("city_error").innerHTML = error;
+            return false;
+        }
+        if (address.length > 50) {
+            var error = "Max limit is 50";
+            document.getElementById("address_error").innerHTML = error;
+            return false;
+        }
+        if (zip.length > 5) {
+            var error = "Max limit is 5";
+            document.getElementById("zip_error").innerHTML = error;
+            return false;
+        }
+        if (phoneNumber.length > 15) {
+            var error = "Max limit is 15";
+            document.getElementById("phoneNumber_error").innerHTML = error;
+            return false;
+        }
+        if (email.length > 30) {
+            var error = "Max limit is 30";
+            document.getElementById("email_error").innerHTML = error;
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Add Warehouse</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Warehouses")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Warehouse</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.warehouseID)
+        <div class="form-group">
+            <b class="control-label col-md-2">Warehouse name</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.warehouseName, new { id = "warehouseName", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="name_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Country</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.country, new { id = "country", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="country_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+        <div class="form-group">
+            <b class="control-label col-md-2">City</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.city, new { id = "city", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="city_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Address</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.warehouseAddress, new { id = "address", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="address_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">ZIP</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ZIP, new { id = "zip", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="zip_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Warehouse Status</b>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.warehouseStatus, new SelectListItem[]
+                 {
+                      new SelectListItem {Value="Stable", Text="Stable"},
+                      new SelectListItem {Value="On Maintanance", Text="On Maintanance"},
+                      new SelectListItem {Value="Closed", Text="Closed"},
+                      new SelectListItem {Value="Under Construct", Text="Under Construct"}})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Phone Number</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.phoneNumber, new { id = "phoneNumber", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="phoneNumber_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Email</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.email, new { id = "email", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="email_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Max Capacity</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.maxCapacity, new { id = "maxCapacity", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-success" onclick="return validateForm();"/>
+            </div>
+        </div>
+    </div>
+}
+

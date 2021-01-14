@@ -1,0 +1,76 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Orders
+@{
+    ViewBag.Title = "AddOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+        var id = document.getElementById("id").value;
+        var description = document.getElementById("description").value;
+        var manufacturer = document.getElementById("date").value;
+        if (id == "" || manufacturer == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        if (description.length > 50) {
+            var error = "Max limit is 50";
+            document.getElementById("desc_error").innerHTML = error;
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Add Order</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Orders")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Order</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.orderID)
+        <div class="form-group">
+            <b class="control-label col-md-2">Warehouse ID</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.warehouseID, new { id = "id", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <b class="control-label col-md-2">Description</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.orderDescription, new { id = "description", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="desc_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Order Date</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.orderDate, new { id = "date", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add" class="btn btn-success" onclick="return validateForm();"/>
+            </div>
+        </div>
+    </div>
+}
+
+

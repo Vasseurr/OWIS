@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="Material-contact-section section-padding section-dark">
+    <div class="container" style="margin-left:0;">
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-12 wow animated fadeInLeft" data-wow-delay=".2s">
+                <h1 class="section-title" style="font-size:2vw;font-weight:600">Need Help?</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Section Titile -->
+            <div class="col-md-6 mt-3 contact-widget-section2 wow animated fadeInLeft" data-wow-delay=".2s">
+                <p>As the developer team of the Online Warehousing Information System - Owis, we would like to hear suggestions, improvement tips or any assistance requests from you. Please fill up the form and contact to us whenever you need!</p>
+                <div class="find-widget">
+                    <h2>Developers Behind</h2   >
+                    <div class="row">
+
+                        <div class="col-md-6" style="font-size:18px;color:dimgray">Mustafa Furkan Kaz</div>
+                        <div class="col-md-6" style="font-size:18px;color:dimgray">Okan Rüzgar</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6" style="font-size:18px;color:dimgray">1700003238</div>
+                        <div class="col-md-6" style="font-size:18px;color:dimgray">1700003129</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 wow animated fadeInRight" data-wow-delay=".2s">
+                <form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="name">Name</label>
+                        <input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="email">Email</label>
+                        <input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Subject</label>
+                        <input class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="message" class="control-label">Message</label>
+                        <textarea class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-submit mt-5">
+                        <button class="btn btn-common" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

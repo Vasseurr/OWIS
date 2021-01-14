@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container" style="margin-left:0">
+    <div class="row">
+        <h2 type="button" style="width:100%;font-weight:bolder">Welcome To Online Warehousing Information System</h2>
+        <hr style="border:solid #202c63 0.2px"/>
+    </div>
+@foreach(var elem in (List<Tuple<int,string,string>>)ViewData["rec"])
+{
+
+    <div class="item col-md-4" style="margin-left:0;">
+        <div class="thumbnail">
+            <img class="group list-group-image" alt="" />
+            <div class="caption">
+                <h2 class="group inner list-group-item-heading">
+                    @elem.Item3
+                </h2>
+                <p class="group inner list-group-item-text">
+                    Total number of the @elem.Item3 within Owis
+                </p>
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <p class="lead" style="color:#202c63;font-size:35pt;font-weight:bold">
+                            @elem.Item1
+                        </p>
+                    </div>
+                </div>
+                @if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+                {
+                    <div class="" style="text-align:right">
+                        <input type="button" class="btn btn-info" value="List Of All @elem.Item3" onclick="location.href='@Url.Action("Index", "" + elem.Item3)'" />
+                    </div>
+                }
+                </div>
+        </div>
+    </div>
+}
+</div>
+
+
+

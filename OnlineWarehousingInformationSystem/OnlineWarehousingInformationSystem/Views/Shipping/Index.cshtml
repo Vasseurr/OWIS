@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <h2>Shippings</h2>
+        </div>
+        <div class="col-md-9 text-right">
+            <input type="button" class="btn btn-primary" value="Back to Main Page" onclick="location.href='@Url.Action("Index", "Main")'" />
+        </div>
+         
+    </div>
+</div>
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-hover ">
+        <thead style="font-weight:700;font-size:110%;">
+            <tr>
+                <td>Package ID</td>
+                <td>Shipping Date</td>
+                <td>Current Location</td>
+                <td>Current Status</td>
+                <td>Shipping Note</td>
+            </tr>
+        </thead>
+        <hr />
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td scope="row">@item.packageID</td>
+                    <td>@item.shippingDate</td>
+                    <td>@item.currentLocation</td>
+                    <td>@item.currentStatus</td>
+                    <td>@item.shippingNote</td>
+                    <td>
+                        @Html.ActionLink("Detail", "DetailShipping", "Shipping", new { id = item.packageID }, null) |
+                        @Html.ActionLink("Edit", "EditShipping", "Shipping", new { id = item.packageID }, null)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

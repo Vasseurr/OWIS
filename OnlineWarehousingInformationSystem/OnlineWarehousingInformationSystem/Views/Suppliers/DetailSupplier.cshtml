@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "DetailSupplier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table>
+
+    @foreach (var item in Model)
+    {
+        <div class="row gutters-sm">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="col-md-10">
+                        <h3>Supplier Details</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Suppliers")'" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                        <div class="mt-3">
+                            <h4>@item.supplierName</h4>
+                            @if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+                            {
+                                @Html.ActionLink("Edit", "EditSupplier", "Suppliers", new { id = @item.supplierID }, null)<span>|</span>
+                                @Html.ActionLink("Delete", "DeleteFromSuppliers", "Suppliers", new { id = @item.supplierID }, new { onclick = "return confirm('Are you sure you wish to delete this user?'); " })
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        </div>
+
+        <div class="col-md-8">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Supplier ID</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.supplierID
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Supplier Name</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.supplierName
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Country</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.country
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">City</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.city
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Address</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.supplierAddress
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Phone Number</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.phoneNumber
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <h6 class="mb-0">Email</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                            @item.email
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</table>

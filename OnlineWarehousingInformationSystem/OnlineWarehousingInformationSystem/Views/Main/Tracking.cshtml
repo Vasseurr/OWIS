@@ -1,0 +1,212 @@
+﻿@using OnlineWarehousingInformationSystem.Models
+@{
+    ViewBag.Title = "Track Package";
+    bool error = (bool)ViewData["non"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <h2>Track Package</h2>
+        </div>
+        <div class="col-md-9 text-right">
+            <input type="button" class="btn btn-primary" value="Back to Main Page" onclick="location.href='@Url.Action("Index", "Main")'" />
+        </div>
+    </div>
+</div>
+<hr />
+
+<div class="container">
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-md-10">
+                <div class="search2">
+                    <input id="txt" name="search" type="text" placeholder="Package ID">
+                    <input id="inp" type="submit" value="Track Package">
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (error)
+    {
+        <h3 style="color:#972424">Could not find the package with the given package ID!</h3>
+    }
+    else
+    {
+        foreach (var item in Model.Package)
+        {
+            <div class="card2">
+                <h2 style="padding:15px 0 0 25px ">
+                    @if (item.isProvided)
+                    {
+                        <span>Incoming</span>
+                    }
+                    else
+                    { <span>Outgoing</span>}
+                    Package - #<span class="text-primary font-weight-bold" style=" font-weight:bold;color: #283c8b">@item.packageID</span>
+                </h2>
+                <!-- Add class 'active' to progress -->
+                <div class="row justify-content-between top" style="margin-top: 0 !important;padding-top: 0 !important;padding-bottom: 0 !important">
+                    <ul id="progressbar" class="text-center">
+                        <ul id="progressbar" class="text-center">
+                            <li>
+                                <div class="row d-flex icon-content">
+                                    <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                                    <div class="d-flex flex-column">
+                                        <p class="font-weight-bold">Package<br>Processed</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row d-flex icon-content">
+                                    <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+                                    <div class="d-flex flex-column">
+                                        <p class="font-weight-bold">Package<br>Shipped</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row d-flex icon-content">
+                                    <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+                                    <div class="d-flex flex-column">
+                                        <p class="font-weight-bold">Package<br>On Way</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="row d-flex icon-content">
+                                    <img class="icon" src="https://i.imgur.com/HdsziHP.png">
+                                    <div class="d-flex flex-column">
+                                        <p class="font-weight-bold">Package<br>Arrived</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul id="progressbar" class="active text-center" style="margin-top:-50px;">
+                            <li class="active step0"></li>
+                            @if (item.packageStatus == "On Shipping" || item.Shipping.currentStatus == "Shipped" || item.Shipping.currentStatus == "Delivered")
+                            {
+                                <li class="active step0"></li>
+                            }
+                            else
+                            {
+                                <li class="step0"></li>
+                            }
+                            @if (item.Shipping.currentStatus == "On The Way" || item.Shipping.currentStatus == "Delivered")
+                            {
+                                <li class="active step0"></li>
+                            }
+                            else
+                            {
+                                <li class="step0"></li>
+                            }
+                            @if (item.Shipping.currentStatus == "Delivered")
+                            {
+                                <li class="active step0"></li>
+                            }
+                            else
+                            {
+                                <li class="step0"></li>
+                            }
+                        </ul>
+                    </ul>
+                </div>
+                <div class="row d-flex justify-content-between top" style="margin:0;padding:0">
+                    <div class="d-flex flex-column text-sm-right" style="font-weight:600;font-size:12pt;">
+                        <div class="col-md-6" style="font-size:10pt">
+                            <h2>Package Detail</h2>
+                            <div class="col-md-6">
+                                <ul style="text-decoration: none; list-style: none;padding:0;">
+                                    <li>Package ID</li>
+                                    @if (item.isProvided == true)
+                                    {
+                                        <li>Shipment ID</li>
+                                    }
+                                    else
+                                    {
+                                        <li>Order ID</li>
+                                    }
+                                    <li>Package Created At</li>
+                                    <li>Status</li>
+                                    <li>Note</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul style="text-decoration: none;list-style: none;padding:0;color:#283c8b">
+                                    <li>@item.packageID</li>
+                                    @if (item.isProvided)
+                                    {
+                                        <li>@item.shipmentID</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@item.orderID</li>
+                                    }
+                                    <li>@item.createdTime</li>
+                                    <li>@item.packageStatus</li>
+                                    @if (item.notes == null)
+                                    {
+                                        <li>Not Defined</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@item.notes </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="font-size:10pt">
+                            <h2>Shipping Detail</h2>
+                            <div class="col-md-6">
+                                <ul style="text-decoration: none; list-style: none;padding:0;">
+                                    @foreach (var tem in Model.Shipping)
+                                    {
+                                        <li>Package Shipping Date</li>
+                                        if (tem.estimatedDeliveryDate == null)
+                                        {
+                                            <li>Estimated Delivery Date</li>
+                                        }
+                                        else
+                                        {
+                                            <li>Delivery Date</li>
+                                        }
+                                        <li>Current Status</li>
+                                        <li>Current Location</li>
+                                        <li>Supplier</li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul style="text-decoration: none;list-style: none;padding:0;color:#283c8b">
+                                    @foreach (var tem in Model.Shipping)
+                                    {
+                                        <li>@tem.shippingDate</li>
+                                        if (tem.estimatedDeliveryDate != null)
+                                        {
+                                            <li> @tem.estimatedDeliveryDate </li>
+                                        }
+                                        else if (tem.deliveryDate != null)
+                                        {
+                                            <li>@tem.deliveryDate </li>
+                                        }
+                                        else
+                                        {
+                                            <br />
+                                        }
+                                        <li>@tem.currentStatus</li>
+                                        <li>@tem.currentLocation</li>
+                                        <li>@item.Suppliers.supplierName</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>

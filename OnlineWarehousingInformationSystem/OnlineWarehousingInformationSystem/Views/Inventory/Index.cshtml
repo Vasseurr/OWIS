@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <h2>Inventory</h2>
+        </div>
+        <div class="col-md-9 text-right">
+            <input type="button" class="btn btn-primary" value="Back to Main Page" onclick="location.href='@Url.Action("Index", "Main")'" />
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover ">
+        <thead style="font-weight:700;font-size:110%;">
+            <tr>
+                <td>Product ID</td>
+                <td>Product Name</td>
+                <td>Manufacturer</td>
+                <td>Total Quantity</td>
+                <td>Update Date</td>
+            </tr>
+        </thead>
+        <hr />
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.productID</td>
+                    <td>@item.Products.productName</td>
+                    <td>@item.Products.manufacturer</td>
+                    <td>@item.totalQuantity</td>
+                    <td>@item.updateDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

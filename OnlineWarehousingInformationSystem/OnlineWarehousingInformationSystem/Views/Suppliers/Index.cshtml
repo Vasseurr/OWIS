@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <h2>Suppliers</h2>
+        </div>
+        <div class="col-md-9 text-right">
+            <ul>
+                @if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+                {
+                    <li style="text-decoration:none;display:inline-block">
+                        <input type="button" class="btn btn-success" value="Add a Supplier" onclick="location.href='@Url.Action("AddSupplier", "Suppliers")'" />
+                    </li>
+                }
+                <li style="text-decoration:none;display:inline-block">
+                    <input type="button" class="btn btn-primary" value="Back to Main Page" onclick="location.href='@Url.Action("Index", "Main")'" />
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover ">
+        <thead style="font-weight:700;font-size:110%;">
+            <tr>
+                <td>Supplier ID</td>
+                <td>Supplier Name</td>
+                @if (HttpContext.Current.Session["UserType"].ToString().Equals("2") || HttpContext.Current.Session["UserType"].ToString().Equals("1"))
+                {
+                    <td>Phone Number</td>
+                    <td>Email</td>
+                }
+            </tr>
+        </thead>
+        <hr />
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td scope="row">@item.supplierID</td>
+                    <td>@item.supplierName</td>
+                        @if (HttpContext.Current.Session["UserType"].ToString().Equals("2") || HttpContext.Current.Session["UserType"].ToString().Equals("1"))
+                        {
+                    <td>@item.phoneNumber</td>
+                    <td>@item.email</td>
+                    <td>
+                        @Html.ActionLink("Detail", "DetailSupplier", "Suppliers", new { id = item.supplierID }, null)
+
+                        @if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+                        {
+                            <span>|</span>
+                            @Html.ActionLink("Edit", "EditSupplier", "Suppliers", new { id = item.supplierID }, null)
+                            <span>|</span>
+                            @Html.ActionLink("Delete", "DeleteFromSuppliers", "Suppliers", new { id = item.supplierID }, new { onclick = "return confirm('Are you sure you wish to delete this record?'); " })
+                        }
+                    </td>
+                        }
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

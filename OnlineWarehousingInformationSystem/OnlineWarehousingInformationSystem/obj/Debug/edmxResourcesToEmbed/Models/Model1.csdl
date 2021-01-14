@@ -1,0 +1,916 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OWISDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="checkWarehousesWithProductQuantity_Result">
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="warehouseName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="currentCapacity" Type="Int32" />
+    <Property Name="warehouseStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Bills">
+    <Key>
+      <PropertyRef Name="billID" />
+    </Key>
+    <Property Name="billID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="shipmentID" Type="Int32" Nullable="false" />
+    <Property Name="invoiceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="paymentType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="operationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Shipments" Relationship="Self.FK__Bills__shipmentI__5165187F" FromRole="Bills" ToRole="Shipments" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="staffID" Type="Int32" />
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="orderDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Orders__staffID__4222D4EF" FromRole="Orders" ToRole="Staff" />
+    <NavigationProperty Name="Warehouses" Relationship="Self.FK__Orders__warehous__4316F928" FromRole="Orders" ToRole="Warehouses" />
+    <NavigationProperty Name="Packages" Relationship="Self.FK__Packages__orderI__5AEE82B9" FromRole="Orders" ToRole="Packages" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__orderI__4CA06362" FromRole="Orders" ToRole="Payments" />
+  </EntityType>
+  <EntityType Name="PackageContents">
+    <Key>
+      <PropertyRef Name="contentID" />
+    </Key>
+    <Property Name="contentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="productQuantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Packages" Relationship="Self.FK__PackageCo__packa__619B8048" FromRole="PackageContents" ToRole="Packages" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__PackageCo__produ__60A75C0F" FromRole="PackageContents" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="Packages">
+    <Key>
+      <PropertyRef Name="packageID" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="isProvided" Type="Boolean" Nullable="false" />
+    <Property Name="orderID" Type="Int32" />
+    <Property Name="shipmentID" Type="Int32" />
+    <Property Name="supplierID" Type="Int32" Nullable="false" />
+    <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="packageStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="notes" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Packages__orderI__5AEE82B9" FromRole="Packages" ToRole="Orders" />
+    <NavigationProperty Name="PackageContents" Relationship="Self.FK__PackageCo__packa__619B8048" FromRole="Packages" ToRole="PackageContents" />
+    <NavigationProperty Name="Shipments" Relationship="Self.FK__Packages__shipme__5BE2A6F2" FromRole="Packages" ToRole="Shipments" />
+    <NavigationProperty Name="Suppliers" Relationship="Self.FK__Packages__suppli__5CD6CB2B" FromRole="Packages" ToRole="Suppliers" />
+    <NavigationProperty Name="Shipping" Relationship="Self.FK__Shipping__packag__66603565" FromRole="Packages" ToRole="Shipping" />
+  </EntityType>
+  <EntityType Name="Payments">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="invoiceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="paymentType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="operationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Payments__orderI__4CA06362" FromRole="Payments" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productDescription" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="manufacturer" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="productWeight" Type="Double" Nullable="false" />
+    <Property Name="inStock" Type="Boolean" Nullable="false" />
+    <Property Name="totalQuantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="PackageContents" Relationship="Self.FK__PackageCo__produ__60A75C0F" FromRole="Products" ToRole="PackageContents" />
+    <NavigationProperty Name="Inventory" Relationship="Self.FK__Inventory__produ__6B24EA82" FromRole="Products" ToRole="Inventory" />
+    <NavigationProperty Name="WarehouseContents" Relationship="Self.FK__Warehouse__produ__33D4B598" FromRole="Products" ToRole="WarehouseContents" />
+  </EntityType>
+  <EntityType Name="Shipments">
+    <Key>
+      <PropertyRef Name="shipmentID" />
+    </Key>
+    <Property Name="shipmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="staffID" Type="Int32" />
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="shipmentDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="shipmentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK__Bills__shipmentI__5165187F" FromRole="Shipments" ToRole="Bills" />
+    <NavigationProperty Name="Packages" Relationship="Self.FK__Packages__shipme__5BE2A6F2" FromRole="Shipments" ToRole="Packages" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Shipments__staff__46E78A0C" FromRole="Shipments" ToRole="Staff" />
+    <NavigationProperty Name="Warehouses" Relationship="Self.FK__Shipments__wareh__47DBAE45" FromRole="Shipments" ToRole="Warehouses" />
+  </EntityType>
+  <EntityType Name="Shipping">
+    <Key>
+      <PropertyRef Name="packageID" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="shippingDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estimatedDeliveryDate" Type="DateTime" Precision="0" />
+    <Property Name="deliveryDate" Type="DateTime" Precision="0" />
+    <Property Name="currentLocation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="currentStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="shippingNote" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Packages" Relationship="Self.FK__Shipping__packag__66603565" FromRole="Shipping" ToRole="Packages" />
+  </EntityType>
+  <EntityType Name="Staff">
+    <Key>
+      <PropertyRef Name="staffID" />
+    </Key>
+    <Property Name="staffID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__staffID__4222D4EF" FromRole="Staff" ToRole="Orders" />
+    <NavigationProperty Name="Shipments" Relationship="Self.FK__Shipments__staff__46E78A0C" FromRole="Staff" ToRole="Shipments" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Staff__userID__3D5E1FD2" FromRole="Staff" ToRole="Users" />
+    <NavigationProperty Name="Warehouses" Relationship="Self.FK__Staff__warehouse__3E52440B" FromRole="Staff" ToRole="Warehouses" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="supplierID" />
+    </Key>
+    <Property Name="supplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="supplierName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="supplierAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Packages" Relationship="Self.FK__Packages__suppli__5CD6CB2B" FromRole="Suppliers" ToRole="Packages" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userGender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="userAge" Type="Int32" Nullable="false" />
+    <Property Name="userType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="userAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Staff__userID__3D5E1FD2" FromRole="Users" ToRole="Staff" />
+  </EntityType>
+  <EntityType Name="Warehouses">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+    </Key>
+    <Property Name="warehouseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="warehouseName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="warehouseAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ZIP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="warehouseStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="maxCapacity" Type="Int32" Nullable="false" />
+    <Property Name="currentCapacity" Type="Int32" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__warehous__4316F928" FromRole="Warehouses" ToRole="Orders" />
+    <NavigationProperty Name="Shipments" Relationship="Self.FK__Shipments__wareh__47DBAE45" FromRole="Warehouses" ToRole="Shipments" />
+    <NavigationProperty Name="Staff" Relationship="Self.FK__Staff__warehouse__3E52440B" FromRole="Warehouses" ToRole="Staff" />
+    <NavigationProperty Name="WarehouseContents" Relationship="Self.FK__Warehouse__wareh__32E0915F" FromRole="Warehouses" ToRole="WarehouseContents" />
+  </EntityType>
+  <EntityType Name="Inventory">
+    <Key>
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="totalQuantity" />
+      <PropertyRef Name="updateDate" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="totalQuantity" Type="Int32" Nullable="false" />
+    <Property Name="updateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Inventory__produ__6B24EA82" FromRole="Inventory" ToRole="Products" />
+  </EntityType>
+  <EntityType Name="WarehouseContents">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="quantity" />
+    </Key>
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="quantity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK__Warehouse__produ__33D4B598" FromRole="WarehouseContents" ToRole="Products" />
+    <NavigationProperty Name="Warehouses" Relationship="Self.FK__Warehouse__wareh__32E0915F" FromRole="WarehouseContents" ToRole="Warehouses" />
+  </EntityType>
+  <EntityType Name="detailedPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="isProvided" />
+      <PropertyRef Name="packageStatus" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="supplierName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="createdTime" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="shipmentID" Type="Int32" />
+    <Property Name="orderID" Type="Int32" />
+    <Property Name="isProvided" Type="Boolean" Nullable="false" />
+    <Property Name="notes" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PackageWeightKG" Type="Double" />
+    <Property Name="packageStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="supplierID" Type="Int32" Nullable="false" />
+    <Property Name="supplierName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="getPackageContents">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="productID" />
+      <PropertyRef Name="productName" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="productName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="productQuantity" Type="Int32" />
+  </EntityType>
+  <EntityType Name="localPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="isProvided" />
+      <PropertyRef Name="createdTime" />
+      <PropertyRef Name="packageStatus" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="supplierName" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="isProvided" Type="Boolean" Nullable="false" />
+    <Property Name="orderID" Type="Int32" />
+    <Property Name="shipmentID" Type="Int32" />
+    <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="packageStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="supplierID" Type="Int32" Nullable="false" />
+    <Property Name="supplierName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="supplierAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="orderPaidByCreditCard">
+    <Key>
+      <PropertyRef Name="orderID" />
+      <PropertyRef Name="orderDate" />
+      <PropertyRef Name="invoiceID" />
+      <PropertyRef Name="amount" />
+      <PropertyRef Name="operationDate" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="orderDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="invoiceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="operationDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="ordersFromAbroad">
+    <Key>
+      <PropertyRef Name="orderID" />
+      <PropertyRef Name="orderDate" />
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="warehouseName" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" />
+    <Property Name="orderDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="orderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="warehouseName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="currentCapacity" Type="Int32" />
+    <Property Name="warehouseStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="packageWeights">
+    <Key>
+      <PropertyRef Name="packageID" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="packageWeightKG" Type="Double" />
+  </EntityType>
+  <EntityType Name="pendingPackage">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="createdTime" />
+      <PropertyRef Name="shippingDate" />
+      <PropertyRef Name="currentLocation" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="shipmentID" Type="Int32" />
+    <Property Name="supplierID" Type="Int32" Nullable="false" />
+    <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="shippingDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="estimatedDeliveryDate" Type="DateTime" Precision="0" />
+    <Property Name="currentLocation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="receivedPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="createdTime" />
+      <PropertyRef Name="supplierID" />
+      <PropertyRef Name="supplierName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="phoneNumber" />
+      <PropertyRef Name="email" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="shipmentID" Type="Int32" />
+    <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="supplierID" Type="Int32" Nullable="false" />
+    <Property Name="supplierName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="supplierAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sentPackages">
+    <Key>
+      <PropertyRef Name="packageID" />
+      <PropertyRef Name="createdTime" />
+    </Key>
+    <Property Name="packageID" Type="Int32" Nullable="false" />
+    <Property Name="shipmentID" Type="Int32" />
+    <Property Name="createdTime" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="shipmentPaidByCash">
+    <Key>
+      <PropertyRef Name="shipmentID" />
+      <PropertyRef Name="shipmentDate" />
+      <PropertyRef Name="invoiceID" />
+      <PropertyRef Name="amount" />
+      <PropertyRef Name="operationDate" />
+    </Key>
+    <Property Name="shipmentID" Type="Int32" Nullable="false" />
+    <Property Name="shipmentDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="shipmentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="invoiceID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="amount" Type="Int32" Nullable="false" />
+    <Property Name="operationDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="userTypeStaff">
+    <Key>
+      <PropertyRef Name="userName" />
+      <PropertyRef Name="firstName" />
+      <PropertyRef Name="lastName" />
+      <PropertyRef Name="userAge" />
+      <PropertyRef Name="email" />
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="staffID" />
+    </Key>
+    <Property Name="userName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userAge" Type="Int32" Nullable="false" />
+    <Property Name="userGender" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="staffID" Type="Int32" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="warehouseStaff">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="warehouseName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+      <PropertyRef Name="staffID" />
+      <PropertyRef Name="firstName" />
+      <PropertyRef Name="lastName" />
+    </Key>
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="warehouseName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="currentCapacity" Type="Int32" />
+    <Property Name="staffID" Type="Int32" Nullable="false" />
+    <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="title" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="warehouseStaffCount">
+    <Key>
+      <PropertyRef Name="warehouseID" />
+      <PropertyRef Name="warehouseName" />
+      <PropertyRef Name="country" />
+      <PropertyRef Name="city" />
+    </Key>
+    <Property Name="warehouseID" Type="Int32" Nullable="false" />
+    <Property Name="warehouseName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="currentCapacity" Type="Int32" />
+    <Property Name="country" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="city" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="staffCount" Type="Int32" />
+  </EntityType>
+  <Association Name="FK__Bills__shipmentI__5165187F">
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shipments">
+        <PropertyRef Name="shipmentID" />
+      </Principal>
+      <Dependent Role="Bills">
+        <PropertyRef Name="shipmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__staffID__4222D4EF">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="staffID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__warehous__4316F928">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Packages__orderI__5AEE82B9">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="Packages">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payments__orderI__4CA06362">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="orderID" />
+      </Principal>
+      <Dependent Role="Payments">
+        <PropertyRef Name="orderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PackageCo__packa__619B8048">
+    <End Role="Packages" Type="Self.Packages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PackageContents" Type="Self.PackageContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Packages">
+        <PropertyRef Name="packageID" />
+      </Principal>
+      <Dependent Role="PackageContents">
+        <PropertyRef Name="packageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PackageCo__produ__60A75C0F">
+    <End Role="Products" Type="Self.Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PackageContents" Type="Self.PackageContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="PackageContents">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Packages__shipme__5BE2A6F2">
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="0..1" />
+    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shipments">
+        <PropertyRef Name="shipmentID" />
+      </Principal>
+      <Dependent Role="Packages">
+        <PropertyRef Name="shipmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Packages__suppli__5CD6CB2B">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="supplierID" />
+      </Principal>
+      <Dependent Role="Packages">
+        <PropertyRef Name="supplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Shipping__packag__66603565">
+    <End Role="Packages" Type="Self.Packages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Shipping" Type="Self.Shipping" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Packages">
+        <PropertyRef Name="packageID" />
+      </Principal>
+      <Dependent Role="Shipping">
+        <PropertyRef Name="packageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inventory__produ__6B24EA82">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Warehouse__produ__33D4B598">
+    <End Role="Products" Type="Self.Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WarehouseContents" Type="Self.WarehouseContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="productID" />
+      </Principal>
+      <Dependent Role="WarehouseContents">
+        <PropertyRef Name="productID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Shipments__staff__46E78A0C">
+    <End Role="Staff" Type="Self.Staff" Multiplicity="0..1" />
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Staff">
+        <PropertyRef Name="staffID" />
+      </Principal>
+      <Dependent Role="Shipments">
+        <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Shipments__wareh__47DBAE45">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="Shipments">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Staff__userID__3D5E1FD2">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Staff__warehouse__3E52440B">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1" />
+    <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="Staff">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Warehouse__wareh__32E0915F">
+    <End Role="Warehouses" Type="Self.Warehouses" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WarehouseContents" Type="Self.WarehouseContents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Warehouses">
+        <PropertyRef Name="warehouseID" />
+      </Principal>
+      <Dependent Role="WarehouseContents">
+        <PropertyRef Name="warehouseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OWISDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bills" EntityType="Self.Bills" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" />
+    <EntitySet Name="PackageContents" EntityType="Self.PackageContents" />
+    <EntitySet Name="Packages" EntityType="Self.Packages" />
+    <EntitySet Name="Payments" EntityType="Self.Payments" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="Shipments" EntityType="Self.Shipments" />
+    <EntitySet Name="Shipping" EntityType="Self.Shipping" />
+    <EntitySet Name="Staff" EntityType="Self.Staff" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="Warehouses" EntityType="Self.Warehouses" />
+    <EntitySet Name="Inventory" EntityType="Self.Inventory" />
+    <EntitySet Name="WarehouseContents" EntityType="Self.WarehouseContents" />
+    <EntitySet Name="detailedPackages" EntityType="Self.detailedPackages" />
+    <EntitySet Name="getPackageContents" EntityType="Self.getPackageContents" />
+    <EntitySet Name="localPackages" EntityType="Self.localPackages" />
+    <EntitySet Name="orderPaidByCreditCard" EntityType="Self.orderPaidByCreditCard" />
+    <EntitySet Name="ordersFromAbroad" EntityType="Self.ordersFromAbroad" />
+    <EntitySet Name="packageWeights" EntityType="Self.packageWeights" />
+    <EntitySet Name="pendingPackage" EntityType="Self.pendingPackage" />
+    <EntitySet Name="receivedPackages" EntityType="Self.receivedPackages" />
+    <EntitySet Name="sentPackages" EntityType="Self.sentPackages" />
+    <EntitySet Name="shipmentPaidByCash" EntityType="Self.shipmentPaidByCash" />
+    <EntitySet Name="userTypeStaff" EntityType="Self.userTypeStaff" />
+    <EntitySet Name="warehouseStaff" EntityType="Self.warehouseStaff" />
+    <EntitySet Name="warehouseStaffCount" EntityType="Self.warehouseStaffCount" />
+    <AssociationSet Name="FK__Bills__shipmentI__5165187F" Association="Self.FK__Bills__shipmentI__5165187F">
+      <End Role="Shipments" EntitySet="Shipments" />
+      <End Role="Bills" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__staffID__4222D4EF" Association="Self.FK__Orders__staffID__4222D4EF">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__warehous__4316F928" Association="Self.FK__Orders__warehous__4316F928">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Packages__orderI__5AEE82B9" Association="Self.FK__Packages__orderI__5AEE82B9">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Packages" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payments__orderI__4CA06362" Association="Self.FK__Payments__orderI__4CA06362">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Payments" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PackageCo__packa__619B8048" Association="Self.FK__PackageCo__packa__619B8048">
+      <End Role="Packages" EntitySet="Packages" />
+      <End Role="PackageContents" EntitySet="PackageContents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PackageCo__produ__60A75C0F" Association="Self.FK__PackageCo__produ__60A75C0F">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="PackageContents" EntitySet="PackageContents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Packages__shipme__5BE2A6F2" Association="Self.FK__Packages__shipme__5BE2A6F2">
+      <End Role="Shipments" EntitySet="Shipments" />
+      <End Role="Packages" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Packages__suppli__5CD6CB2B" Association="Self.FK__Packages__suppli__5CD6CB2B">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Packages" EntitySet="Packages" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Shipping__packag__66603565" Association="Self.FK__Shipping__packag__66603565">
+      <End Role="Packages" EntitySet="Packages" />
+      <End Role="Shipping" EntitySet="Shipping" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inventory__produ__6B24EA82" Association="Self.FK__Inventory__produ__6B24EA82">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Inventory" EntitySet="Inventory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Warehouse__produ__33D4B598" Association="Self.FK__Warehouse__produ__33D4B598">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="WarehouseContents" EntitySet="WarehouseContents" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Shipments__staff__46E78A0C" Association="Self.FK__Shipments__staff__46E78A0C">
+      <End Role="Staff" EntitySet="Staff" />
+      <End Role="Shipments" EntitySet="Shipments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Shipments__wareh__47DBAE45" Association="Self.FK__Shipments__wareh__47DBAE45">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Shipments" EntitySet="Shipments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Staff__userID__3D5E1FD2" Association="Self.FK__Staff__userID__3D5E1FD2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Staff__warehouse__3E52440B" Association="Self.FK__Staff__warehouse__3E52440B">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="Staff" EntitySet="Staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Warehouse__wareh__32E0915F" Association="Self.FK__Warehouse__wareh__32E0915F">
+      <End Role="Warehouses" EntitySet="Warehouses" />
+      <End Role="WarehouseContents" EntitySet="WarehouseContents" />
+    </AssociationSet>
+    <FunctionImport Name="checkWarehousesWithProductQuantity" IsComposable="true" ReturnType="Collection(OWISDBModel.checkWarehousesWithProductQuantity_Result)">
+      <Parameter Name="productID" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="findWarehouseWithZip" ReturnType="Collection(OWISDBModel.findWarehouseWithZip_Result)">
+      <Parameter Name="zipCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="getBillFromDate" ReturnType="Collection(OWISDBModel.getBillFromDate_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="getDeliveredShipping" ReturnType="Collection(OWISDBModel.getDeliveredShipping_Result)" />
+    <FunctionImport Name="getPackageFromDate" ReturnType="Collection(OWISDBModel.getPackageFromDate_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="getPaymentsFromDate" ReturnType="Collection(OWISDBModel.getPaymentsFromDate_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="getShippingDetailOfPackage" ReturnType="Collection(OWISDBModel.getShippingDetailOfPackage_Result)">
+      <Parameter Name="packageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getWarehouseInCountry" ReturnType="Collection(OWISDBModel.getWarehouseInCountry_Result)">
+      <Parameter Name="country" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="lowStockItems" ReturnType="Collection(OWISDBModel.lowStockItems_Result)" />
+    <FunctionImport Name="searchForProduct" ReturnType="Collection(OWISDBModel.searchForProduct_Result)">
+      <Parameter Name="searchParameter" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="searchForSupplier" ReturnType="Collection(OWISDBModel.searchForSupplier_Result)">
+      <Parameter Name="searchParameter" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="searchForUser" ReturnType="Collection(OWISDBModel.searchForUser_Result)">
+      <Parameter Name="searchParameter" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="searchForWarehouse" ReturnType="Collection(OWISDBModel.searchForWarehouse_Result)">
+      <Parameter Name="searchParameter" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sumProductQuantityInPackage">
+      <Parameter Name="packageID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="updateProductQuantity" ReturnType="Collection(OWISDBModel.updateProductQuantity_Result)">
+      <Parameter Name="productID" Mode="In" Type="String" />
+      <Parameter Name="totalquantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usersWithType" ReturnType="Collection(OWISDBModel.usersWithType_Result)">
+      <Parameter Name="userType" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="findWarehouseWithZip_Result">
+    <Property Type="Int32" Name="warehouseID" Nullable="false" />
+    <Property Type="String" Name="warehouseName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="country" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="city" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="currentCapacity" Nullable="true" />
+    <Property Type="Int32" Name="maxCapacity" Nullable="false" />
+    <Property Type="String" Name="warehouseStatus" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="getBillFromDate_Result">
+    <Property Type="Int32" Name="shipmentID" Nullable="false" />
+    <Property Type="String" Name="invoiceID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="paymentType" Nullable="false" MaxLength="15" />
+    <Property Type="Int32" Name="amount" Nullable="false" />
+    <Property Type="DateTime" Name="operationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="shipmentDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="shipmentDescription" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="getDeliveredShipping_Result">
+    <Property Type="Int32" Name="packageID" Nullable="false" />
+    <Property Type="Int32" Name="supplierID" Nullable="false" />
+    <Property Type="String" Name="supplierName" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="shippingDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="shippingNote" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="deliveryDate" Nullable="true" />
+    <Property Type="DateTime" Name="createdTime" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="getPackageFromDate_Result">
+    <Property Type="Int32" Name="packageID" Nullable="false" />
+    <Property Type="Boolean" Name="isProvided" Nullable="false" />
+    <Property Type="Int32" Name="orderID" Nullable="true" />
+    <Property Type="Int32" Name="shipmentID" Nullable="true" />
+    <Property Type="Int32" Name="supplierID" Nullable="false" />
+    <Property Type="DateTime" Name="createdTime" Nullable="false" Precision="23" />
+    <Property Type="String" Name="packageStatus" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="notes" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="getPaymentsFromDate_Result">
+    <Property Type="Int32" Name="orderID" Nullable="false" />
+    <Property Type="String" Name="invoiceID" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="paymentType" Nullable="false" MaxLength="15" />
+    <Property Type="Int32" Name="amount" Nullable="false" />
+    <Property Type="DateTime" Name="operationDate" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="orderDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="orderDescription" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="getShippingDetailOfPackage_Result">
+    <Property Type="Int32" Name="packageID" Nullable="false" />
+    <Property Type="Int32" Name="supplierID" Nullable="false" />
+    <Property Type="String" Name="supplierName" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="country" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="city" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="shippingDate" Nullable="false" Precision="23" />
+    <Property Type="String" Name="shippingNote" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="deliveryDate" Nullable="true" />
+    <Property Type="DateTime" Name="createdTime" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="getWarehouseInCountry_Result">
+    <Property Type="Int32" Name="warehouseID" Nullable="false" />
+    <Property Type="String" Name="warehouseName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="country" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="city" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="warehouseAddress" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ZIP" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="warehouseStatus" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="phoneNumber" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="Int32" Name="quantity" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="lowStockItems_Result">
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="String" Name="productName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="productDescription" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="manufacturer" Nullable="true" MaxLength="20" />
+    <Property Type="Double" Name="productWeight" Nullable="false" />
+    <Property Type="Boolean" Name="inStock" Nullable="false" />
+    <Property Type="Int32" Name="totalQuantity" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="searchForProduct_Result">
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="String" Name="productName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="productDescription" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="manufacturer" Nullable="true" MaxLength="20" />
+    <Property Type="Double" Name="productWeight" Nullable="false" />
+    <Property Type="Int32" Name="totalQuantity" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="searchForSupplier_Result">
+    <Property Type="Int32" Name="supplierID" Nullable="false" />
+    <Property Type="String" Name="supplierName" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="supplierAddress" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="phoneNumber" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="searchForUser_Result">
+    <Property Type="String" Name="firstName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="userAge" Nullable="false" />
+    <Property Type="String" Name="userName" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="phoneNumber" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="searchForWarehouse_Result">
+    <Property Type="Int32" Name="warehouseID" Nullable="false" />
+    <Property Type="String" Name="warehouseName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="country" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="city" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="warehouseStatus" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="warehouseAddress" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="email" Nullable="false" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="updateProductQuantity_Result">
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="String" Name="productName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="productDescription" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="manufacturer" Nullable="true" MaxLength="20" />
+    <Property Type="Double" Name="productWeight" Nullable="false" />
+    <Property Type="Boolean" Name="inStock" Nullable="false" />
+    <Property Type="Int32" Name="totalQuantity" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="usersWithType_Result">
+    <Property Type="String" Name="firstName" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="userAge" Nullable="false" />
+    <Property Type="String" Name="userGender" Nullable="true" MaxLength="6" />
+    <Property Type="String" Name="userName" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="phoneNumber" Nullable="false" MaxLength="15" />
+  </ComplexType>
+</Schema>

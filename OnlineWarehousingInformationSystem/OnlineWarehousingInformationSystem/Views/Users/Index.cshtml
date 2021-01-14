@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (HttpContext.Current.Session["UserType"].ToString().Equals("2"))
+{
+    <div class="row">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <h2>Users</h2>
+            </div>
+            <div class="col-md-9 text-right">
+                <ul>
+                    <li style="text-decoration:none;display:inline-block">
+                        <input type="button" class="btn btn-success" value="Add a User" onclick="location.href='@Url.Action("AddUser", "Users")'" />
+                    </li>
+                    <li style="text-decoration:none;display:inline-block">
+                        <input type="button" class="btn btn-primary" value="Back to Main Page" onclick="location.href='@Url.Action("Index", "Main")'" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-hover ">
+            <thead style="font-weight:700;font-size:110%;">
+                <tr>
+                    <td>ID</td>
+                    <td>Username</td>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>User Type</td>
+                </tr>
+            </thead>
+            <hr />
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td scope="row">@item.userID</td>
+                    <td>@item.userName</td>
+                    <td>@item.firstName</td>
+                    <td>@item.lastName</td>
+
+                    @if (item.userType.Equals("0"))
+                    {
+                        <td>User</td>
+                    }
+                    @if (item.userType.Equals("1"))
+                    {
+                        <td>Staff</td>
+                    }
+                    @if (item.userType.Equals("2"))
+                    {
+                        <td>Admin</td>
+                    }
+
+
+                    <td>
+
+                        @Html.ActionLink("Detail", "DetailUser", "Users", new { id = item.userID }, null) |
+                        @Html.ActionLink("Edit", "EditUser", "Users", new { id = item.userID }, null)
+                        @if (!item.userType.Equals("2"))
+                        {
+                            <span>|</span>
+                            @Html.ActionLink("Delete", "DeleteFromUsers", "Users", new { id = item.userID }, new { onclick = "return confirm('Are you sure you wish to delete this user?'); " })
+                        }
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

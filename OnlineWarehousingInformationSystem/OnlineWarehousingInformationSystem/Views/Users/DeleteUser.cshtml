@@ -1,0 +1,75 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Users
+@{
+    ViewBag.Title = "DeleteUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete User</h2>
+
+
+<table>
+
+    <tr>
+        <td>UserImage</td>
+    </tr>
+
+    <tr>
+        <td>Username</td>
+        <td>@Model.userName</td>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>@Model.firstName @Model.lastName</td>
+    </tr>
+
+    <tr>
+        <td>Gender</td>
+        <td>@Model.userGender</td>
+    </tr>
+
+    <tr>
+        <td>Age</td>
+        <td>@Model.userAge</td>
+    </tr>
+
+    <tr>
+        <td>E-mail</td>
+        <td>@Model.email</td>
+    </tr>
+
+    <tr>
+        <td>User type</td>
+        @if (Model.userType.Equals("0"))
+        {
+            <td>User</td>
+}
+        @if (Model.userType.Equals("1"))
+        {
+            <td>Staff</td>
+}
+        @if (Model.userType.Equals("2"))
+        {
+            <td>Admin</td>
+}
+    </tr>
+
+    <tr>
+        <td>Adress</td>
+        <td>@Model.userAddress</td>
+    </tr>
+
+    <tr>
+        <td>Phone Number</td>
+        <td>@Model.phoneNumber</td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.ActionLink("Back to list", "Index", "Users") |
+            @Html.ActionLink("Delete", "DeleteFromUsers", new { id = @Model.userID }, new { onclick = "return confirm('The record is deleting...');" })
+        </td>
+    </tr>
+</table>
+
+

@@ -1,0 +1,78 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Payments
+@{
+    ViewBag.Title = "AddPayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    function validateForm() {
+        var id = document.getElementById("id").value;
+        var amount = document.getElementById("amount").value;
+        if (id == "" || amount == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Add Order</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Orders")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <h4>Payment</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.orderID)
+    @Html.HiddenFor(model => model.paymentID)
+    @Html.HiddenFor(model => model.operationDate)
+    <div class="form-group">
+        <b class="control-label col-md-2">Invoice ID</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.invoiceID, new { id = "id", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <!--<b id="id_error" style="color:red;font-weight:300"></b>-->
+            <b style="color:red;font-weight:300">@Html.ValidationMessageFor(model => model.invoiceID, "", new { @class = "text-danger" })</b>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <b class="control-label col-md-2">Status</b>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.paymentType, new SelectListItem[]
+      {
+          new SelectListItem {Value="Cash", Text = "Cash" },
+          new SelectListItem {Value="Check", Text="Check"},
+          new SelectListItem {Value="Debit Card", Text="Debit Card"},
+          new SelectListItem {Value="Credit Card", Text="Credit Card"}})
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Amount</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.amount, new { id = "amount", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b style="color:red;font-weight:300">@Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })</b>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add" class="btn btn-success" onclick="return validateForm();" />
+        </div>
+    </div>
+</div>
+}
+

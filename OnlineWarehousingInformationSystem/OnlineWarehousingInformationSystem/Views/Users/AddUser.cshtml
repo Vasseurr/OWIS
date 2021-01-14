@@ -1,0 +1,174 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Users
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+        var name = document.getElementById("userName").value;
+        var password = document.getElementById("password").value;
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var age = document.getElementById("age").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        var email = document.getElementById("email").value;
+        var address = document.getElementById("address").value;
+        if (name == "" || password == "" || firstName == "" || lastName == "" || age == "" || phoneNumber == "" || email == "" || address == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        if (name.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("name_error").innerHTML = error;
+            return false;
+        }
+        if (password.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("password_error").innerHTML = error;
+            return false;
+        }
+        if (firstName.length > 30) {
+            var error = "Max limit is 30";
+            document.getElementById("first_error").innerHTML = error;
+            return false;
+        }
+        if (lastName.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("last_error").innerHTML = error;
+            return false;
+        }
+        if (age.length > 3) {
+            var error = "Max limit is 3";
+            document.getElementById("age_error").innerHTML = error;
+            return false;
+        }
+        if (age < 18) {
+            var error = "User age must be bigger than 17";
+            document.getElementById("age_error").innerHTML = error;
+            return false;
+        }
+        if (address.length > 50) {
+            var error = "Max limit is 50";
+            document.getElementById("address_error").innerHTML = error;
+            return false;
+        }
+        if (email.length > 30) {
+            var error = "Max limit is 30";
+            document.getElementById("email_error").innerHTML = error;
+            return false;
+        }
+        if (phoneNumber.length > 15) {
+            var error = "Max limit is 15";
+            document.getElementById("phoneNumber_error").innerHTML = error;
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Add New User</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Users")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.userID)
+    <div class="form-group">
+        <b class="control-label col-md-2">User name</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.userName, new { id = "userName", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="name_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Password</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.userPassword, new { id = "password", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="password_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">User type</b>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.userType, new SelectListItem[]
+            {
+                new SelectListItem {Value="0", Text="User"},
+                new SelectListItem {Value="1", Text="Staff"},
+                new SelectListItem {Value="2", Text="Admin"}})
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">First name</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.firstName, new { id = "firstName", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="first_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Last name</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.lastName, new { id = "lastName", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="last_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Age</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.userAge, new { id = "age", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="age_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Gender</b>
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.userGender, new SelectListItem[]
+           {
+               new SelectListItem {Value="Male", Text="Male"},
+               new SelectListItem {Value="Female", Text="Female"}})
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Address</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.userAddress, new { id = "address", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="address_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Email</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.email, new { id = "email", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="email_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <b class="control-label col-md-2">Phone number</b>
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.phoneNumber, new { id = "phoneNumber", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+            <b id="phoneNumber_error" style="color:red;font-weight:300"></b>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add" class="btn btn-success" onclick="return validateForm();"/>
+        </div>
+    </div>
+</div>
+}
+<div></div>
+
+

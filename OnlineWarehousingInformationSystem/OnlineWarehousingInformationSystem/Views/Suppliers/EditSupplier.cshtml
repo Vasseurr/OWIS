@@ -1,0 +1,125 @@
+﻿@model OnlineWarehousingInformationSystem.Models.Suppliers
+@{
+    ViewBag.Title = "EditSupplier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var country = document.getElementById("country").value;
+        var city = document.getElementById("city").value;
+        var address = document.getElementById("address").value;
+        var email = document.getElementById("email").value;
+        var phoneNumber = document.getElementById("phoneNumber").value;
+        if (name == "" || country == "" || city == "" || phoneNumber == "" || email == "") {
+            alert("Please fill in mandatory fields");
+            return false;
+        }
+        if (name.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("name_error").innerHTML = error;
+            return false;
+        }
+        if (country.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("country_error").innerHTML = error;
+            return false;
+        }
+        if (city.length > 20) {
+            var error = "Max limit is 20";
+            document.getElementById("city_error").innerHTML = error;
+            return false;
+        }
+        if (address.length > 50) {
+            var error = "Max limit is 50";
+            document.getElementById("address_error").innerHTML = error;
+            return false;
+        }
+        if (email.length > 30) {
+            var error = "Max limit is 30";
+            document.getElementById("email_error").innerHTML = error;
+            return false;
+        }
+        if (phoneNumber.length > 15) {
+            var error = "Max limit is 15";
+            document.getElementById("phoneNumber_error").innerHTML = error;
+            return false;
+        }
+        return Form.submit();
+    }
+</script>
+
+<div class="row">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <h3>Edit Supplier</h3>
+            </div>
+            <div class="col-md-2">
+                <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("Index", "Suppliers")'" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.supplierID)
+        <div class="form-group">
+            <b class="control-label col-md-2">Supplier name</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.supplierName, new { id = "name", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="name_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Country</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.country, new { id = "country", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="country_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+        <div class="form-group">
+            <b class="control-label col-md-2">City</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.city, new { id = "city", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="city_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <b class="control-label col-md-2">Address</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.supplierAddress, new { id = "address", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="address_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+        <div class="form-group">
+            <b class="control-label col-md-2">Email</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.email, new { id = "email", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="email_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+        <div class="form-group">
+            <b class="control-label col-md-2">Phone Number</b>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.phoneNumber, new { id = "phoneNumber", style = "border:groove 1px gray;border-radius:5px;height:30px;width:600px;" })
+                <b id="phoneNumber_error" style="color:red;font-weight:300"></b>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-success" onclick="return validateForm();"/>
+            </div>
+        </div>
+    </div>
+}
+
+
