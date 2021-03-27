@@ -1,5 +1,28 @@
-# OWIS
- Online warehousing Information System
+# Hello, folks! <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
+
+My name is Okan and I'm a student of Computer Engineer. You can find me on [![LinkedIn][1.2]][1].
+
+# System includes:
+- Login, Dashboard, Logout
+
+- View User Profile, Warehouses, Staff
+
+- View Orders, Shipments, Packages, Products
+
+- Track packages, Control bills
+
+- 3 user types that are Admin, Staff and basic user
+
+- Add/Edit/Delete operations within your jurisdiction
+
+## 🔧 Technologies & Tools
+![](https://img.shields.io/badge/OS-Windows-Green?style=flat&logo=linux&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Editor-VisualStudio-information?style=flat&logo=html5%20ide&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Code-Csharp-informational?style=flat&logo=c-sharp&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Code-HTML-informational?style=flat&logo=html5&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Code-CSS-informational?style=flat&logo=css3&logoColor=white&color=2bbc8a)
+![](https://img.shields.io/badge/Tools-MSSQL-informational?style=flat&logo=sql&logoColor=white&color=2bbc8a)
+
 # Screenshots
 Login page
 ![1](https://user-images.githubusercontent.com/67058617/105500050-6490d400-5cd3-11eb-9587-593a013f4f76.PNG)
@@ -35,3 +58,26 @@ Transactions between warehouses (incoming or outgoing) are made by orders(incomi
 To keep the records of the payment operations, each order has a payment, and each shipment has a bill record. Payments keeps the record of money paid for orders and bills are the records of money paid to the company by shipments
 
 For every package, there is the shipping record within the shipping table that is keeping the package’s ID, current location, status, shipping date, estimated delivery date (if exists), delivery date(if delivered) and shipping note if given. Package track requests will be satisfied by this table’s records. 
+
+
+## &#x1f4c8; GitHub Stats
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=vasseurr)](https://github.com/anuraghazra/github-readme-stats)
+
+![Okan's GitHub stats](https://github-readme-stats.vercel.app/api?username=Vasseurr&show_icons=true&theme=dracula)
+
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Vasseurr&repo=User-Authentication)](https://github.com/Vasseurr/User-Authentication)
+
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=Vasseurr&repo=MatchCard)](https://github.com/Vasseurr/MatchCard)
+
+
+
+<!-- links to social media icons -->
+
+[1.1]: http://i.imgur.com/0o48UoR.png (github icon with padding)
+[1.2]: https://img.icons8.com/plasticine/25/000000/linkedin.png (LinkedIn icon without padding)
+
+<!-- links to your social media accounts -->
+
+[1]: https://www.linkedin.com/in/okanruzgar/
+[2]: https://github.com/Vasseurr
+
